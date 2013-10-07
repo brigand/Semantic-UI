@@ -1,0 +1,12 @@
+{
+    "url": "//cdnjs.cloudflare.com/ajax/libs/jquery/",
+    "file": "/jquery.min.js",
+    "versions": [
+        "2.0.3",
+        "1.9.0",
+        "1.8.3",
+        "1.7.2",
+        "1.6.4",
+        "1.4.4"
+    ]
+}
