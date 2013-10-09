@@ -320,31 +320,80 @@
 
     <p></p>
 
-    <div class="ui five column fluid center aligned grid" id="build-element">
+    <div class="ui five fluid column center aligned grid" id="build-element">
+        <div class="column">
+            <div class="choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
 
-        <div class="choice column" data-bind="toggle: elements.icons">
-            <strong>Icons</strong>
+                <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']"><i class="icon"
+                                                                                        data-bind="attr: {class: 'icon ' + $data}"></i>
 
-            <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']">
-                <i class="icon" data-bind="attr: {class: 'icon ' + $data}"></i>
-            </div>
-        </div>
-
-        <div class="tall choice column" data-bind="toggle: elements.divider">
-            <strong>Divider</strong>
-
-            <div>
-                <div>One</div>
-                <div class="ui horizontal icon divider">
-                    <i class="circular heart icon"></i>
                 </div>
-                <div>Two</div>
-
             </div>
         </div>
+        <div class="column">
+            <div class="choice" data-bind="toggle: elements.button"><strong>Button</strong>
 
+                <div>
+                    <div class="ui button">I'm a button!</div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="choice" data-bind="toggle: elements.header"><strong>Header</strong>
+
+                <div class="ui header"><i class="settings icon"></i>
+
+                    <div class="content">Settings</div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="choice" data-bind="toggle: elements.image"><strong>Image</strong>
+
+                <div style="text-align: center">
+                    <img class="ui image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                         style="height: 3rem; display: inline">
+                    <img class="ui rounded image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                         style="height: 3rem; display: inline">
+                    <img class="ui circular image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                         style="height: 3rem; display: inline">
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="choice" data-bind="toggle: elements.input"><strong>Input</strong>
+
+                <div class="ui fluid icon input">
+                    <input type="text" placeholder="Search for something"> <i class="search icon"></i>
+
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="choice" data-bind="toggle: elements.input"><strong>Label</strong>
+
+                <div><a class="ui blue circular label">
+                    62
+                </a>
+                    <span class="purple ui pointing left label">number</span>
+
+                </div>
+                <div></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="tall choice" data-bind="toggle: elements.divider"><strong>Divider</strong>
+
+                <div>
+                    <div>One</div>
+                    <div class="ui horizontal icon divider"><i class="circular heart icon"></i>
+
+                    </div>
+                    <div>Two</div>
+                </div>
+            </div>
+        </div>
     </div>
-
     <h2 class="ui dividing header">Collections</h2>
 
     <p>Click to toggle collections on and off.</p>
@@ -356,29 +405,35 @@
             <button class="ui button" data-bind="click: collections.none">None</button>
         </div>
     </div>
+
+    <!-- TODO: make this propperly spaced using CSS -->
     <p></p>
+
     <div class="ui five column center aligned fluid grid" id="build-element">
 
-        <div class="tall choice column" data-bind="toggle: collections.grid">
-            <strong>Grid</strong>
-            <div class="ui two column center aligned grid">
-                <div class="column">
-                    <div class="ui segment">A</div>
-                </div>
-                <div class="column">
-                    <div class="ui segment">B</div>
-                </div>
-            </div>
-            <div class="ui three column center aligned grid">
-                <div class="column">
-                    <div class="ui segment">C</div>
-                </div>
-                <div class="column">
-                    <div class="ui segment">D</div>
-                </div>
+        <div class="column">
+            <div class="tall choice" data-bind="toggle: collections.grid">
+                <strong>Grid</strong>
 
-                <div class="column">
-                    <div class="ui segment">E</div>
+                <div class="ui two column center aligned grid">
+                    <div class="column">
+                        <div class="ui segment">A</div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">B</div>
+                    </div>
+                </div>
+                <div class="ui three column center aligned grid">
+                    <div class="column">
+                        <div class="ui segment">C</div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">D</div>
+                    </div>
+
+                    <div class="column">
+                        <div class="ui segment">E</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -386,6 +441,26 @@
 
 
     <h2 class="ui dividing header">Modules</h2>
+
+    <div class="ui four column middle center aligned fluid grid" id="build-modules">
+        <div class="column">
+            <div class="choice" data-bind="toggle: modules.modal">
+                <div class="ui header large">Modal</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui fluid button">Demo</div>
+        </div>
+
+        <div class="column">
+            <div class="choice" data-bind="toggle: modules.modal">
+                <div class="ui header large">Modal</div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui fluid button">Demo</div>
+        </div>
+    </div>
 
     <h2 class="ui dividing header">Views</h2>
 
@@ -395,12 +470,12 @@
         <div class="field">
             <label for="meta-title">Title</label>
             <input type="text" id="meta-title" data-bind="value: meta.title"
-                    placeholder="My Semantic UI Site"/>
+                   placeholder="My Semantic UI Site"/>
         </div>
         <div class="field">
             <label for="meta-description">Description</label>
             <input type="text" id="meta-description" data-bind="value: meta.description"
-                    placeholder="My Semantic UI Site"/>
+                   placeholder="My Semantic UI Site"/>
         </div>
     </div>
 

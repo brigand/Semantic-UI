@@ -1,5 +1,5 @@
 function ToggleSet(keys) {
-    for (var i=0; i<keys.length; i++) {
+    for ( var i = 0; i < keys.length; i++ ) {
         this[keys[i]] = ko.observable(true);
     }
 
@@ -7,41 +7,54 @@ function ToggleSet(keys) {
     this.none = this.none.bind(this);
 }
 
-ToggleSet.prototype.all = function(){
-    for (var prop in this) {
+ToggleSet.prototype.all = function () {
+    for ( var prop in this ) {
         var thing = this[prop];
         console.log(prop, ko.unwrap(thing));
-        if (ko.isObservable(thing)) {
+        if ( ko.isObservable(thing) ) {
             thing(true);
         }
     }
 }
 
-ToggleSet.prototype.none = function(){
-    for (var prop in this) {
+ToggleSet.prototype.none = function () {
+    for ( var prop in this ) {
         var thing = this[prop];
-        if (ko.isObservable(thing)) {
+        if ( ko.isObservable(thing) ) {
             thing(false);
         }
     }
 }
 
-function DownloaderViewModel(){
+function DownloaderViewModel() {
     this.framework = ko.observable("");
     this.jQueryVersion = ko.observable(0);
 
+    // Stuff that shouldn't be saved
+    this._temp = {
+
+    }
+
+
+    // DO NOT change the order of these, but you may add additional entries to the end
     var elements = [
-        "icons", "buttons", "divider", "header", "image", "input", "label", "loader", "progress", "segment", "step"
+        "icon", "button", "divider", "header", "image", "input", "label", "loader", "progress", "segment", "step"
     ];
     var collections = [
         "breadcrumb", "form", "grid", "menu", "message", "table"
     ];
 
+    var modules = [
+        "accordion", "checkbox", "dimmer", "dropdown", "modal", "popup", "rating", "reveal", "shape", "sidebar",
+        "transition"
+    ];
+
     this.elements = new ToggleSet(elements);
     this.collections = new ToggleSet(collections);
+    this.modules = new ToggleSet(modules);
 }
 
-DownloaderViewModel.prototype.toString = function(){
+DownloaderViewModel.prototype.toString = function () {
     // Strip away the observables so we have only data
     var obj = ko.toJS(this), binary = obj.binary;
 
