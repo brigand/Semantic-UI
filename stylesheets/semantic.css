@@ -1359,6 +1359,11 @@ body.progress .ui.progress .bar {
   #example .fixed .next {
     display: none;
   }
+
+  #example .icon.example .grid .column {
+    width: 33.33%;
+  }
+
 }
 @media only screen and (max-width : 450px) {
   #example .main.menu .icon.item {
