@@ -37,8 +37,6 @@ function DownloaderViewModel() {
         shouldTheModalBeVisible: ko.observable(false)
     };
 
-
-    // DO NOT change the order of these, but you may add additional entries to the end
     var elements = [
         "icon", "button", "divider", "header", "image", "input", "label", "loader", "progress", "segment", "step"
     ];
@@ -51,9 +49,12 @@ function DownloaderViewModel() {
         "transition"
     ];
 
+    var views = [];
+
     this.elements = new ToggleSet(elements);
     this.collections = new ToggleSet(collections);
     this.modules = new ToggleSet(modules);
+    this.views = new ToggleSet(views)
 
     // Make the context menu work
     this.menuTarget = ko.observable();
@@ -67,8 +68,6 @@ function DownloaderViewModel() {
     // AJAX stuff
     this.downloadComplete = ko.observable(false);
 
-    // jQuery doesn't support this, but JSZip loves it
-    // http://bugs.jquery.com/ticket/11461
     var zip, files = {
         js: {},
         less: {
@@ -79,12 +78,20 @@ function DownloaderViewModel() {
         }
     };
 
-    downloadZipball(files, function(z){
+    downloadZipball(files, function (z) {
         zip = z;
         _this.downloadComplete(true);
+        window.gel = function () {
+            return compileLess(files, _this.toJSON());
+        }
+        console.log(gel());
     });
 }
 
+/**
+ * Lets us searlize the ViewModel, so we can later load it
+ * @returns {Object} object for stringification
+ */
 DownloaderViewModel.prototype.toJSON = function () {
     // Strip away the observables so we have only data
     var obj = ko.toJS(this);
@@ -92,6 +99,7 @@ DownloaderViewModel.prototype.toJSON = function () {
     // Chop off some stuff we don't want to save
     delete obj._temp;
     delete obj.menuTarget;
+    delete obj.downloadComplete;
 
     return obj;
 };
@@ -99,26 +107,78 @@ DownloaderViewModel.prototype.toJSON = function () {
 var viewModel = new DownloaderViewModel();
 ko.applyBindings(viewModel);
 
+function compileLess(files, allowed) {
+    function stringifyPart(which) {
+        var parts = [];
+
+        var len = 0;
+
+        // todo: deal with basic.icon.less and awesome.icon.less
+        $.each(files.less[which], function (name, file) {
+            if ( allowed[which][name] ) {
+                parts.push(file);
+            }
+        });
+
+        return parts.join("\n");
+    }
 
 
-function downloadZipball(files, callback){
+    // merge all selected components into one string
+    css = [
+        stringifyPart("elements"),
+        stringifyPart("collections"),
+        stringifyPart("modules"),
+        stringifyPart("views")
+    ].join("\n")
+
+        // remove any imports
+        // regex borrowed from http://getbootstrap.com/assets/js/customizer.js
+        .replace(/@import[^\n]*/gi, '');
+
+    var result, wrapper, parser = new less.Parser({
+        paths: [],
+        optimization: 0,
+        filename: 'semantic.css'
+    }).parse(css, function (err, tree) {
+            if ( err ) {
+                return console.error('<strong>Ruh roh!</strong> Could not parse less files.', err);
+            }
+            result = {
+                'semantic.css': wrapper + tree.toCSS(),
+                'semantic.min.css': wrapper + tree.toCSS({
+                    compress: true
+            })
+        }
+    });
+
+    return result;
+}
+
+function downloadZipball(files, callback) {
     var zip, xhr = new XMLHttpRequest();
 
+    // jQuery doesn't support this, but JSZip loves it
+    // http://bugs.jquery.com/ticket/11461
     xhr.open('GET', '/build/semantic.zip', true);
     xhr.responseType = 'arraybuffer';
 
-    xhr.onload = function(e) {
+    xhr.onload = function (e) {
         zip = new JSZip(this.response);
-        $.each(zip.files, function(name, file){
+        $.each(zip.files, function (name, file) {
             // exclude directory results
-            if (name.indexOf(".") === -1) return;
+            if ( name.indexOf(".") === -1 ) {
+                return;
+            }
 
             var parts = name.split("/"), type, dir, fileName, ext;
 
             // must be something/something/somefile.txt
             // just a sanity check, this shouldn't ever be true
             // note that it may be 4, for less/modules/behavior
-            if (parts.length < 3) return;
+            if ( parts.length < 3 ) {
+                return;
+            }
 
             // e.g. less or minified
             type = parts[0];
@@ -136,14 +196,12 @@ function downloadZipball(files, callback){
             extensions.shift();
             ext = extensions.join(".");
 
-            if (ext === "min.js") console.log(dir);
-
             // store our less files
-            if (type === "less" && ext === "less") {
+            if ( type === "less" && (ext === "less" || ext === "icon.less") ) {
                 files.less[dir][fileName] = file.asText();
             }
             // store the minified JavaScript files
-            else if (type === "minified" && dir === "modules" && ext === "min.js") {
+            else if ( type === "minified" && dir === "modules" && ext === "min.js" ) {
                 files.js[fileName] = file.asText();
             }
 
