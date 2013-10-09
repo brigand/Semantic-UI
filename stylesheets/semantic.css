@@ -1172,6 +1172,11 @@ body.progress .ui.progress .bar {
        -moz-transition: box-shadow .4s, background .4s;
           -o-transition: box-shadow .4s, background .4s;
              transition: box-shadow .4s, background .4s;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 #build-page .tall.choice {
