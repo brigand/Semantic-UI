@@ -32,8 +32,8 @@ function DownloaderViewModel() {
 
     // Stuff that shouldn't be saved
     this._temp = {
-
-    }
+        shouldTheModalBeVisible: ko.observable(false)
+    };
 
 
     // DO NOT change the order of these, but you may add additional entries to the end

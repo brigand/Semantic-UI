@@ -247,241 +247,251 @@
 
 <div class="main container" id="build-page">
 
-    <div class="peek">
-        <div class="ui vertical pointing secondary menu">
-            <a class="active item">Frameworks</a>
-            <a class="item">Elements and Collections</a>
-            <a class="item">Modules</a>
-            <a class="item">Views</a>
-            <a class="item">Metadata</a>
-            <a class="item">Extras</a>
-            <a class="item">Download</a>
-        </div>
+<div class="peek">
+    <div class="ui vertical pointing secondary menu">
+        <a class="active item">Frameworks</a>
+        <a class="item">Elements and Collections</a>
+        <a class="item">Modules</a>
+        <a class="item">Views</a>
+        <a class="item">Metadata</a>
+        <a class="item">Extras</a>
+        <a class="item">Download</a>
     </div>
+</div>
 
-    <h2 class="ui dividing header">Frameworks</h2>
+<h2 class="ui dividing header">Frameworks</h2>
 
-    <p>These frameworks help keep code maintainable and understandable. Select one,
-        or leave it set to none if you don't intend to use one.</p>
+<p>These frameworks help keep code maintainable and understandable. Select one,
+    or leave it set to none if you don't intend to use one.</p>
 
-    <p>Both Knockout and Angular have plugins to interact with Semantic-UI.</p>
+<p>Both Knockout and Angular have plugins to interact with Semantic-UI.</p>
 
-    <div class="ui three column fluid grid" id="build-framework">
-        <div class="column plain choice"
-             data-bind="click: framework.set(''), css:{ active: framework.is('') }">
-            No Framework / Other
-        </div>
-        <div class="column choice"
-             data-bind="click: framework.set('angular'), css:{ active: framework.is('angular') }">
-            <img src="http://angularjs.org/img/AngularJS-large.png" class="logo"
-                 alt="AngularJS (click to choose)"/>
-        </div>
-        <div class="column choice"
-             data-bind="click: framework.set('knockout'), css:{ active: framework.is('knockout') }">
-            <img src="http://knockoutjs.com/img/ko-logo.png" class="logo"
-                 alt="KnockoutJS (click to choose)"/>
-        </div>
+<div class="ui three column fluid grid" id="build-framework">
+    <div class="column plain choice"
+         data-bind="click: framework.set(''), css:{ active: framework.is('') }">
+        No Framework / Other
     </div>
+    <div class="column choice"
+         data-bind="click: framework.set('angular'), css:{ active: framework.is('angular') }">
+        <img src="http://angularjs.org/img/AngularJS-large.png" class="logo"
+             alt="AngularJS (click to choose)"/>
+    </div>
+    <div class="column choice"
+         data-bind="click: framework.set('knockout'), css:{ active: framework.is('knockout') }">
+        <img src="http://knockoutjs.com/img/ko-logo.png" class="logo"
+             alt="KnockoutJS (click to choose)"/>
+    </div>
+</div>
 
-    <div>
-        <h3 class="header">jQuery Version</h3>
+<div>
+    <h3 class="header">jQuery Version</h3>
 
-        <p>Semantic-UI depends on jQuery to do DOM manipulation. If you're just using
-            the styles of Semantic UI you can select none.</p>
+    <p>Semantic-UI depends on jQuery to do DOM manipulation. If you're just using
+        the styles of Semantic UI you can select none.</p>
 
-        <p>jQuery 2.x.x releases work with Internet Explorer 9 or later, and perform
-            better than the 1.x.x releases. Pick a 1.x.x release if you need to support
-            older browsers. Chrome, Firefox, Opera, and Safari have the
-            <a href="http://jquery.com/browser-support/">same support</a> with either.</p>
+    <p>jQuery 2.x.x releases work with Internet Explorer 9 or later, and perform
+        better than the 1.x.x releases. Pick a 1.x.x release if you need to support
+        older browsers. Chrome, Firefox, Opera, and Safari have the
+        <a href="http://jquery.com/browser-support/">same support</a> with either.</p>
 
-        <div class="ui selection dropdown" data-bind="dropdown: {
+    <div class="ui selection dropdown" data-bind="dropdown: {
                 options: AJAX.jQueryData().versions,
                 value: jQueryVersion
             }"></div>
+</div>
+
+<div>
+
+</div>
+
+<!-- ELEMENTS and COLLECTIONS -->
+
+<h2 class="ui dividing header">Elements</h2>
+
+<p>Click to toggle elements on and off.</p>
+
+<div class="ui two column center aligned grid basic segment">
+    <div class="column">
+        <strong>Elements:</strong>
+        <button class="ui button" data-bind="click: elements.all">All</button>
+        <button class="ui button" data-bind="click: elements.none">None</button>
     </div>
+</div>
 
-    <div>
+<p></p>
 
-    </div>
+<div class="ui five fluid column center aligned grid" id="build-element">
+    <div class="column">
+        <div class="choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
 
-    <!-- ELEMENTS and COLLECTIONS -->
+            <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']"><i class="icon"
+                                                                                    data-bind="attr: {class: 'icon ' + $data}"></i>
 
-    <h2 class="ui dividing header">Elements</h2>
-
-    <p>Click to toggle elements on and off.</p>
-
-    <div class="ui two column center aligned grid basic segment">
-        <div class="column">
-            <strong>Elements:</strong>
-            <button class="ui button" data-bind="click: elements.all">All</button>
-            <button class="ui button" data-bind="click: elements.none">None</button>
-        </div>
-    </div>
-
-    <p></p>
-
-    <div class="ui five fluid column center aligned grid" id="build-element">
-        <div class="column">
-            <div class="choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
-
-                <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']"><i class="icon"
-                                                                                        data-bind="attr: {class: 'icon ' + $data}"></i>
-
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="choice" data-bind="toggle: elements.button"><strong>Button</strong>
-
-                <div>
-                    <div class="ui button">I'm a button!</div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="choice" data-bind="toggle: elements.header"><strong>Header</strong>
-
-                <div class="ui header"><i class="settings icon"></i>
-
-                    <div class="content">Settings</div>
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="choice" data-bind="toggle: elements.image"><strong>Image</strong>
-
-                <div style="text-align: center">
-                    <img class="ui image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                         style="height: 3rem; display: inline">
-                    <img class="ui rounded image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                         style="height: 3rem; display: inline">
-                    <img class="ui circular image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                         style="height: 3rem; display: inline">
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="choice" data-bind="toggle: elements.input"><strong>Input</strong>
-
-                <div class="ui fluid icon input">
-                    <input type="text" placeholder="Search for something"> <i class="search icon"></i>
-
-                </div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="choice" data-bind="toggle: elements.input"><strong>Label</strong>
-
-                <div><a class="ui blue circular label">
-                    62
-                </a>
-                    <span class="purple ui pointing left label">number</span>
-
-                </div>
-                <div></div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="tall choice" data-bind="toggle: elements.divider"><strong>Divider</strong>
-
-                <div>
-                    <div>One</div>
-                    <div class="ui horizontal icon divider"><i class="circular heart icon"></i>
-
-                    </div>
-                    <div>Two</div>
-                </div>
             </div>
         </div>
     </div>
-    <h2 class="ui dividing header">Collections</h2>
+    <div class="column">
+        <div class="choice" data-bind="toggle: elements.button"><strong>Button</strong>
 
-    <p>Click to toggle collections on and off.</p>
-
-    <div class="ui two column center aligned fluid grid basic segment">
-        <div class="column">
-            <strong>Collections:</strong>
-            <button class="ui button" data-bind="click: collections.all">All</button>
-            <button class="ui button" data-bind="click: collections.none">None</button>
+            <div>
+                <div class="ui button">I'm a button!</div>
+            </div>
         </div>
     </div>
+    <div class="column">
+        <div class="choice" data-bind="toggle: elements.header"><strong>Header</strong>
 
-    <!-- TODO: make this propperly spaced using CSS -->
-    <p></p>
+            <div class="ui header"><i class="settings icon"></i>
 
-    <div class="ui five column center aligned fluid grid" id="build-element">
+                <div class="content">Settings</div>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="choice" data-bind="toggle: elements.image"><strong>Image</strong>
 
-        <div class="column">
-            <div class="tall choice" data-bind="toggle: collections.grid">
-                <strong>Grid</strong>
+            <div style="text-align: center">
+                <img class="ui image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                     style="height: 3rem; display: inline">
+                <img class="ui rounded image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                     style="height: 3rem; display: inline">
+                <img class="ui circular image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                     style="height: 3rem; display: inline">
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="choice" data-bind="toggle: elements.input"><strong>Input</strong>
 
-                <div class="ui two column center aligned grid">
-                    <div class="column">
-                        <div class="ui segment">A</div>
-                    </div>
-                    <div class="column">
-                        <div class="ui segment">B</div>
-                    </div>
+            <div class="ui fluid icon input">
+                <input type="text" placeholder="Search for something"> <i class="search icon"></i>
+
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="choice" data-bind="toggle: elements.input"><strong>Label</strong>
+
+            <div><a class="ui blue circular label">
+                62
+            </a>
+                <span class="purple ui pointing left label">number</span>
+
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: elements.divider"><strong>Divider</strong>
+
+            <div>
+                <div>One</div>
+                <div class="ui horizontal icon divider"><i class="circular heart icon"></i>
+
                 </div>
-                <div class="ui three column center aligned grid">
-                    <div class="column">
-                        <div class="ui segment">C</div>
-                    </div>
-                    <div class="column">
-                        <div class="ui segment">D</div>
-                    </div>
+                <div>Two</div>
+            </div>
+        </div>
+    </div>
+</div>
+<h2 class="ui dividing header">Collections</h2>
 
-                    <div class="column">
-                        <div class="ui segment">E</div>
-                    </div>
+<p>Click to toggle collections on and off.</p>
+
+<div class="ui two column center aligned fluid grid basic segment">
+    <div class="column">
+        <strong>Collections:</strong>
+        <button class="ui button" data-bind="click: collections.all">All</button>
+        <button class="ui button" data-bind="click: collections.none">None</button>
+    </div>
+</div>
+
+<!-- TODO: make this propperly spaced using CSS -->
+<p></p>
+
+<div class="ui five column center aligned fluid grid" id="build-element">
+
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: collections.grid">
+            <strong>Grid</strong>
+
+            <div class="ui two column center aligned grid">
+                <div class="column">
+                    <div class="ui segment">A</div>
+                </div>
+                <div class="column">
+                    <div class="ui segment">B</div>
+                </div>
+            </div>
+            <div class="ui three column center aligned grid">
+                <div class="column">
+                    <div class="ui segment">C</div>
+                </div>
+                <div class="column">
+                    <div class="ui segment">D</div>
+                </div>
+
+                <div class="column">
+                    <div class="ui segment">E</div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <h2 class="ui dividing header">Modules</h2>
+<h2 class="ui dividing header">Modules</h2>
 
-    <div class="ui four column middle center aligned fluid grid" id="build-modules">
-        <div class="column">
-            <div class="choice" data-bind="toggle: modules.modal">
-                <div class="ui header large">Modal</div>
-            </div>
+<div class="ui four column middle center aligned fluid grid" id="build-modules">
+    <div class="column">
+        <div class="choice" data-bind="toggle: modules.modal">
+            <div class="ui header large">Modal</div>
         </div>
-        <div class="column">
-            <div class="ui fluid button">Demo</div>
-        </div>
-
-        <div class="column">
-            <div class="choice" data-bind="toggle: modules.modal">
-                <div class="ui header large">Modal</div>
-            </div>
-        </div>
-        <div class="column">
-            <div class="ui fluid button">Demo</div>
+    </div>
+    <div class="column">
+        <div class="ui fluid button" data-bind="toggle: _temp.shouldTheModalBeVisible">Demo</div>
+        <div class="ui modal"
+             data-bind="modal: {
+                     title: 'Demo Modal',
+                     content: 'This is just an example',
+                     show: _temp.shouldTheModalBeVisible
+                }">
         </div>
     </div>
 
-    <h2 class="ui dividing header">Views</h2>
-
-    <h2 class="ui dividing header">Metadata</h2>
-
-    <div class="ui form">
-        <div class="field">
-            <label for="meta-title">Title</label>
-            <input type="text" id="meta-title" data-bind="value: meta.title"
-                   placeholder="My Semantic UI Site"/>
-        </div>
-        <div class="field">
-            <label for="meta-description">Description</label>
-            <input type="text" id="meta-description" data-bind="value: meta.description"
-                   placeholder="My Semantic UI Site"/>
+    <div class="column">
+        <div class="choice" data-bind="toggle: modules.checkbox">
+            <div class="ui header large">Checkbox</div>
         </div>
     </div>
+    <div class="column">
+        <div class="ui checkbox">
+            <input type="checkbox" id="module-checkbox" checked>
+            <label for="module-checkbox">Semantic</label>
+        </div>
+    </div>
+</div>
 
-    <h2 class="ui dividing header">Extras</h2>
+<h2 class="ui dividing header">Views</h2>
 
-    <h2 class="ui dividing header">Download</h2>
+<h2 class="ui dividing header">Metadata</h2>
+
+<div class="ui form">
+    <div class="field">
+        <label for="meta-title">Title</label>
+        <input type="text" id="meta-title" data-bind="value: meta.title"
+               placeholder="My Semantic UI Site"/>
+    </div>
+    <div class="field">
+        <label for="meta-description">Description</label>
+        <input type="text" id="meta-description" data-bind="value: meta.description"
+               placeholder="My Semantic UI Site"/>
+    </div>
+</div>
+
+<h2 class="ui dividing header">Extras</h2>
+
+<h2 class="ui dividing header">Download</h2>
 </div>
 <script type="text/javascript" src="lib/knockout-min.js"></script>
 <script type="text/javascript" src="lib/knockout-semantic.js"></script>
