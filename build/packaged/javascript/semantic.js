@@ -3632,7 +3632,7 @@ $.fn.checkbox = function(parameters) {
         },
 
         enable: function() {
-          module.debug('Enabling checkbox');
+          module.debug('Enabling checkbox', $input);
           $input
             .prop('checked', true)
           ;
@@ -3745,9 +3745,6 @@ $.fn.checkbox = function(parameters) {
             title += ' ' + totalTime + 'ms';
             if(moduleSelector) {
               title += ' \'' + moduleSelector + '\'';
-            }
-            if($allModules.size() > 1) {
-              title += ' ' + '(' + $allModules.size() + ')';
             }
             if( (console.group !== undefined || console.table !== undefined) && performance.length > 0) {
               console.groupCollapsed(title);
@@ -4027,7 +4024,7 @@ $.fn.dimmer = function(parameters) {
             module.set.dimmed();
             if($.fn.transition !== undefined) {
               $dimmer
-                .transition(settings.transition + ' in', settings.duration, function() {
+                .transition(settings.transition + ' in', module.get.duration(), function() {
                   module.set.active();
                   callback();
                 })
@@ -4042,7 +4039,7 @@ $.fn.dimmer = function(parameters) {
                   width   : '100%',
                   height  : '100%'
                 })
-                .fadeTo(settings.duration, 1, function() {
+                .fadeTo(module.get.duration(), 1, function() {
                   $dimmer.removeAttr('style');
                   module.set.active();
                   callback();
@@ -4056,7 +4053,7 @@ $.fn.dimmer = function(parameters) {
             if($.fn.transition !== undefined) {
               module.verbose('Hiding dimmer with css');
               $dimmer
-                .transition(settings.transition + ' out', settings.duration, function() {
+                .transition(settings.transition + ' out', module.get.duration(), function() {
                   module.remove.active();
                   callback();
                 })
@@ -4066,7 +4063,7 @@ $.fn.dimmer = function(parameters) {
               module.verbose('Hiding dimmer with javascript');
               $dimmer
                 .stop()
-                .fadeOut(settings.duration, function() {
+                .fadeOut(module.get.duration(), function() {
                   $dimmer.removeAttr('style');
                   module.remove.active();
                   callback();
@@ -4079,6 +4076,17 @@ $.fn.dimmer = function(parameters) {
         get: {
           dimmer: function() {
             return $dimmer;
+          },
+          duration: function() {
+            if(typeof settings.duration == 'object') {
+              if( module.is.active() ) {
+                return settings.duration.hide;
+              }
+              else {
+                return settings.duration.show;
+              }
+            }
+            return settings.duration;
           }
         },
 
@@ -4388,7 +4396,10 @@ $.fn.dimmer.settings = {
 
   on          : false,
   closable    : true,
-  duration    : 500,
+  duration    : {
+    show : 500,
+    hide : 500
+  },
 
   onChange    : function(){},
   onShow      : function(){},
@@ -4614,12 +4625,22 @@ $.fn.dropdown = function(parameters) {
         determine: {
           selectAction: function(text, value) {
             module.verbose('Determining action', settings.action);
-            if( $.isFunction( module[settings.action] ) ) {
-              module.verbose('Triggering preset action', settings.action);
+            if(settings.action == 'auto') {
+              if(module.is.selection()) {
+                module.debug('Selection dropdown used updating form', text, value);
+                module.updateForm(text, value);
+              }
+              else {
+                module.debug('No action specified hiding dropdown', text, value);
+                module.hide();
+              }
+            }
+            else if( $.isFunction( module[settings.action] ) ) {
+              module.verbose('Triggering preset action', settings.action, text, value);
               module[ settings.action ](text, value);
             }
             else if( $.isFunction(settings.action) ) {
-              module.verbose('Triggering user action', settings.action);
+              module.verbose('Triggering user action', settings.action, text, value);
               settings.action(text, value);
             }
             else {
@@ -4744,6 +4765,9 @@ $.fn.dropdown = function(parameters) {
         },
 
         is: {
+          selection: function() {
+            return $module.hasClass(className.selection);
+          },
           visible: function($subMenu) {
             return ($subMenu)
               ? $subMenu.is(':animated, :visible')
@@ -5092,7 +5116,7 @@ $.fn.dropdown.settings = {
   performance : true,
 
   on          : 'click',
-  action      : 'hide',
+  action      : 'auto',
 
   delay: {
     show: 200,
@@ -5128,7 +5152,8 @@ $.fn.dropdown.settings = {
     active      : 'active',
     placeholder : 'default',
     disabled    : 'disabled',
-    visible     : 'visible'
+    visible     : 'visible',
+    selection   : 'selection'
   }
 
 };
@@ -5333,7 +5358,7 @@ $.fn.modal = function(parameters) {
           module.debug('Hiding modal');
           // remove keyboard detection
           $document
-            .off('keyup.' + namespace)
+            .off('keyup.' + eventNamespace)
           ;
           if(settings.transition && $.fn.transition !== undefined) {
             $module
@@ -5378,7 +5403,7 @@ $.fn.modal = function(parameters) {
 
         restore: {
           focus: function() {
-          $focusedElement.focus();
+            $focusedElement.focus();
           }
         },
 
@@ -5428,7 +5453,10 @@ $.fn.modal = function(parameters) {
             module.debug('Setting dimmer settings', settings.closable);
             $context
               .dimmer('setting', 'closable', settings.closable)
-              .dimmer('setting', 'duration', settings.duration)
+              .dimmer('setting', 'duration', {
+                show : settings.duration * 0.95,
+                hide : settings.duration * 1.05
+              })
               .dimmer('setting', 'onShow' , module.add.keyboardShortcuts)
               .dimmer('setting', 'onHide', function() {
                 module.hide();
@@ -6246,6 +6274,7 @@ $.fn.nag.settings = {
 $.fn.popup = function(parameters) {
   var
     $allModules     = $(this),
+    $document       = $(document),
 
     settings        = ( $.isPlainObject(parameters) )
       ? $.extend(true, {}, $.fn.popup.settings, parameters)
@@ -6436,6 +6465,7 @@ $.fn.popup = function(parameters) {
                 left   : (popup.position.left < boundary.left)
               };
             }
+            module.verbose('Checking if outside viewable area', popup.position);
             // return only boundaries that have been surpassed
             $.each(offstage, function(direction, isOffstage) {
               if(isOffstage) {
@@ -6491,7 +6521,7 @@ $.fn.popup = function(parameters) {
             module.show();
           }
           else {
-            module.hide();
+            // module.hide();
           }
         },
 
@@ -6523,9 +6553,10 @@ $.fn.popup = function(parameters) {
           switch(position) {
             case 'top left':
               positioning = {
-                top    : 'auto',
                 bottom :  parentHeight - offset.top + settings.distanceAway,
-                left   : offset.left + arrowOffset
+                right  :  parentWidth - offset.left - width - arrowOffset,
+                top    : 'auto',
+                left   : 'auto'
               };
             break;
             case 'top center':
@@ -6538,10 +6569,9 @@ $.fn.popup = function(parameters) {
             break;
             case 'top right':
               positioning = {
-                bottom :  parentHeight - offset.top + settings.distanceAway,
-                right  :  parentWidth - offset.left - width - arrowOffset,
                 top    : 'auto',
-                left   : 'auto'
+                bottom :  parentHeight - offset.top + settings.distanceAway,
+                left   : offset.left + arrowOffset
               };
             break;
             case 'left center':
@@ -6563,9 +6593,9 @@ $.fn.popup = function(parameters) {
             case 'bottom left':
               positioning = {
                 top    :  offset.top + height + settings.distanceAway,
-                left   : offset.left + arrowOffset,
-                bottom : 'auto',
-                right  : 'auto'
+                right  : parentWidth - offset.left - width - arrowOffset,
+                left   : 'auto',
+                bottom : 'auto'
               };
             break;
             case 'bottom center':
@@ -6579,9 +6609,9 @@ $.fn.popup = function(parameters) {
             case 'bottom right':
               positioning = {
                 top    :  offset.top + height + settings.distanceAway,
-                right  : parentWidth - offset.left - width - arrowOffset,
-                left   : 'auto',
-                bottom : 'auto'
+                left   : offset.left + arrowOffset,
+                bottom : 'auto',
+                right  : 'auto'
               };
             break;
           }
@@ -6591,11 +6621,8 @@ $.fn.popup = function(parameters) {
           });
           // tentatively place on stage
           $popup
-            .removeAttr('style')
-            .removeClass('top right bottom left center')
+            .attr('class', position + ' ' + className.popup + ' ' + className.loading)
             .css(positioning)
-            .addClass(position)
-            .addClass(className.loading)
           ;
           // check if is offstage
           offstagePosition = module.get.offstagePosition();
@@ -6646,7 +6673,7 @@ $.fn.popup = function(parameters) {
           }
           if(settings.on == 'click' && settings.clicktoClose) {
             module.debug('Binding popup close event');
-            $(document)
+            $document
               .on('click.' + namespace, module.gracefully.hide)
             ;
           }
@@ -6668,18 +6695,18 @@ $.fn.popup = function(parameters) {
             module.debug('Hiding pop-up');
             if(settings.transition && $.fn.transition !== undefined) {
               $popup
-                .transition(settings.transition + ' out', settings.duration)
+                .transition(settings.transition + ' out', settings.duration, module.reset)
               ;
             }
             else {
               $popup
                 .stop()
-                .fadeOut(settings.duration, settings.easing)
+                .fadeOut(settings.duration, settings.easing, module.reset)
               ;
             }
           }
           if(settings.on == 'click' && settings.clicktoClose) {
-            $(document)
+            $document
               .off('click.' + namespace)
             ;
           }
@@ -6687,6 +6714,14 @@ $.fn.popup = function(parameters) {
           if(!settings.inline) {
             module.remove();
           }
+        },
+
+        reset: function() {
+          module.verbose('Resetting inline styles');
+          $popup
+            .attr('style', '')
+            .removeAttr('style')
+          ;
         },
 
         gracefully: {

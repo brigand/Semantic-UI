@@ -116,16 +116,24 @@
     Standard Inputs
 ---------------------*/
 .ui.form textarea,
+.ui.form select,
 .ui.form input[type="text"],
+.ui.form input[type="email"],
 .ui.form input[type="date"],
 .ui.form input[type="password"],
+.ui.form input[type="number"],
+.ui.form input[type="tel"],
 .ui.form .ui.input {
   width: 100%;
 }
 .ui.form textarea,
+.ui.form select,
 .ui.form input[type="text"],
+.ui.form input[type="email"],
 .ui.form input[type="date"],
-.ui.form input[type="password"] {
+.ui.form input[type="password"],
+.ui.form input[type="number"],
+.ui.form input[type="tel"] {
   margin: 0em;
   padding: 0.85em 1.2em;
   font-size: 0.875em;
@@ -158,9 +166,6 @@
   height: 12em;
   max-height: 24em;
   resize: vertical;
-}
-.ui.form select {
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 .ui.form textarea,
 .ui.form input[type="checkbox"] {
@@ -209,8 +214,13 @@
         Focus
 ---------------------*/
 .ui.form input[type="text"]:focus,
+.ui.form input[type="email"]:focus,
+.ui.form input[type="date"]:focus,
 .ui.form input[type="password"]:focus,
-.ui.form textarea:focus {
+.ui.form input[type="number"]:focus,
+.ui.form input[type="tel"]:focus,
+.ui.form textarea:focus,
+.ui.form select:focus {
   color: rgba(0, 0, 0, 0.85);
   border-color: rgba(0, 0, 0, 0.2);
   border-bottom-left-radius: 0;
@@ -241,12 +251,18 @@
 }
 .ui.form .fields.error .field textarea,
 .ui.form .fields.error .field input[type="text"],
+.ui.form .fields.error .field input[type="email"],
 .ui.form .fields.error .field input[type="date"],
 .ui.form .fields.error .field input[type="password"],
+.ui.form .fields.error .field input[type="number"],
+.ui.form .fields.error .field input[type="tel"],
 .ui.form .field.error textarea,
 .ui.form .field.error input[type="text"],
+.ui.form .field.error input[type="email"],
 .ui.form .field.error input[type="date"],
-.ui.form .field.error input[type="password"] {
+.ui.form .field.error input[type="password"],
+.ui.form .field.error input[type="number"],
+.ui.form .field.error input[type="tel"] {
   background-color: #FFFAFA;
   border-color: #E7BEBE;
   border-left: none;
@@ -260,7 +276,11 @@
 }
 .ui.form .field.error textarea:focus,
 .ui.form .field.error input[type="text"]:focus,
-.ui.form .field.error input[type="password"]:focus {
+.ui.form .field.error input[type="email"]:focus,
+.ui.form .field.error input[type="date"]:focus,
+.ui.form .field.error input[type="password"]:focus,
+.ui.form .field.error input[type="number"]:focus,
+.ui.form .field.error input[type="tel"]:focus {
   border-color: #ff5050;
   color: #ff5050;
   -webkit-appearance: none;
@@ -354,13 +374,11 @@
 }
 .ui.form .date.field > label:after {
   position: absolute;
-  top: 1.4em;
+  top: 2em;
   right: 0.5em;
   font-family: 'Icons';
-  content: '📅';
-  /* '\1f4c5' */
-
-  font-size: 1.5em;
+  content: '\f133';
+  font-size: 1.2em;
   font-weight: normal;
   color: #CCCCCC;
 }
@@ -371,7 +389,12 @@
   color: #FFFFFF;
 }
 .ui.inverted.form .field.error textarea,
-.ui.inverted.form .field.error input[type="text"] {
+.ui.inverted.form .field.error input[type="text"],
+.ui.inverted.form .field.error input[type="email"],
+.ui.inverted.form .field.error input[type="date"],
+.ui.inverted.form .field.error input[type="password"],
+.ui.inverted.form .field.error input[type="number"],
+.ui.inverted.form .field.error input[type="tel"] {
   background-color: #FFCCCC;
 }
 /*--------------------
@@ -402,7 +425,7 @@
   line-height: 0;
   height: 0;
 }
-.ui.form .fields .field {
+.ui.form .fields > .field {
   clear: none;
   float: left;
   -webkit-box-sizing: border-box;
@@ -410,32 +433,35 @@
   -ms-box-sizing: border-box;
   box-sizing: border-box;
 }
-.ui.form .fields .field:first-child {
+.ui.form .fields > .field:first-child {
   border-left: none;
   box-shadow: none;
 }
 /* Other Combinations */
-.ui.form .two.fields .field {
+.ui.form .two.fields > .fields,
+.ui.form .two.fields > .field {
   width: 50%;
   padding-left: 1%;
   padding-right: 1%;
 }
-.ui.form .three.fields .field {
+.ui.form .three.fields > .fields,
+.ui.form .three.fields > .field {
   width: 33.333%;
   padding-left: 1%;
   padding-right: 1%;
 }
-.ui.form .four.fields .field {
+.ui.form .four.fields > .fields,
+.ui.form .four.fields > .field {
   width: 25%;
   padding-left: 1%;
   padding-right: 1%;
 }
-.ui.form .five.fields .field {
+.ui.form .five.fields > .fields,
+.ui.form .five.fields > .field {
   width: 20%;
   padding-left: 1%;
   padding-right: 1%;
 }
-/* override sides, ie8 no last-child */
 .ui.form .fields .field:first-child {
   padding-left: 0%;
 }
@@ -452,11 +478,9 @@
 .ui.form .inline.fields .field > label,
 .ui.form .inline.fields .field > p,
 .ui.form .inline.fields .field > input,
-.ui.form .inline.fields .field > select,
 .ui.form .inline.field > label,
 .ui.form .inline.field > p,
-.ui.form .inline.field > input,
-.ui.form .inline.field > select {
+.ui.form .inline.field > input {
   display: inline-block;
   width: auto;
   margin-top: 0em;
@@ -485,8 +509,13 @@
 }
 .ui.small.form textarea,
 .ui.small.form input[type="text"],
+.ui.small.form input[type="email"],
+.ui.small.form input[type="date"],
 .ui.small.form input[type="password"],
-.ui.small.form label {
+.ui.small.form input[type="number"],
+.ui.small.form input[type="tel"],
+.ui.small.form label,
+.ui.small.form select {
   font-size: 1em;
 }
 /* Large */
@@ -3978,6 +4007,11 @@ i.basic.icon {
   font-size: 1em;
 }
 i.large.basic.icon {
+  font-size: 1.5em;
+  margin-right: 0.2em;
+  vertical-align: middle;
+}
+i.big.basic.icon {
   font-size: 2em;
   margin-right: 0.5em;
   vertical-align: middle;
@@ -6860,6 +6894,10 @@ i.icon {
   font-size: 1em;
 }
 i.large.icon {
+  font-size: 1.5em;
+  vertical-align: middle;
+}
+i.big.icon {
   font-size: 2em;
   vertical-align: middle;
 }
@@ -9001,7 +9039,7 @@ a.ui.teal.label:hover:before {
  *
  */
 /*******************************
-            Button
+            Accordion
 *******************************/
 .ui.accordion {
   width: 600px;
@@ -9070,6 +9108,32 @@ a.ui.teal.label:hover:before {
   padding: 0em;
 }
 /*******************************
+            Types
+*******************************/
+/*--------------
+     Basic
+---------------*/
+.ui.basic.accordion {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.ui.basic.accordion .title,
+.ui.basic.accordion .title {
+  background-color: transparent;
+  border-top: none;
+  padding-left: 0em;
+  padding-right: 0em;
+}
+.ui.basic.accordion .content {
+  padding-left: 0em;
+  padding-right: 0em;
+}
+.ui.basic.accordion .active.title {
+  background-color: transparent;
+}
+/*******************************
             States
 *******************************/
 /*--------------
@@ -9097,22 +9161,13 @@ a.ui.teal.label:hover:before {
   display: block;
 }
 /*******************************
-            Variations
+           Variations
 *******************************/
-.ui.basic.accordion {
-  background-color: transparent;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-.ui.basic.accordion .title {
-  background-color: transparent;
-  border-top: none;
-}
-.ui.basic.accordion .title,
-.ui.basic.accordion .content {
-  padding-left: 0em;
-  padding-right: 0em;
+/*--------------
+     Fluid
+---------------*/
+.ui.fluid.accordion {
+  width: 100%;
 }
 
 /*
@@ -9389,34 +9444,45 @@ a.ui.teal.label:hover:before {
   position: relative;
   display: inline-block;
   outline: none;
-  margin-right: 0.5em;
   vertical-align: middle;
 }
 .ui.checkbox input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
   opacity: 0;
   outline: none;
 }
 /*--- Box ---*/
 .ui.checkbox .box,
 .ui.checkbox label {
-  outline: none;
   cursor: pointer;
+  position: relative;
+  min-width: 1em;
+  height: 1em;
+  padding-left: 2em;
+  outline: none;
+  white-space: nowrap;
+}
+.ui.checkbox .box:before,
+.ui.checkbox label:before {
   position: absolute;
+  top: 0.25em;
   line-height: 1;
   width: 1em;
   height: 1em;
-  bottom: 0em;
   left: 0em;
+  content: '';
   border-radius: 4px;
+  background: #FFFFFF;
+  -webkit-transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  -ms-transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
   -webkit-box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.2);
   box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.2);
-  background: #FFFFFF;
-  -webkit-transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
-  -moz-transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
-  -o-transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
-  -ms-transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
-  transition: background-color 0.1s ease-out, box-shadow 0.1s ease-out;
 }
 /*--- Checkbox ---*/
 .ui.checkbox .box:after,
@@ -9438,12 +9504,27 @@ a.ui.teal.label:hover:before {
 }
 .ui.checkbox .box:after,
 .ui.checkbox label:after {
-  top: 0.3em;
+  top: 0.54em;
   left: 0.2em;
   width: 0.45em;
   height: 0.15em;
 }
-/*--- Label ---*/
+/*--- Inside Label ---*/
+.ui.checkbox label {
+  color: rgba(0, 0, 0, 0.6);
+  -webkit-transition: color 0.2s ease;
+  -moz-transition: color 0.2s ease;
+  -o-transition: color 0.2s ease;
+  -ms-transition: color 0.2s ease;
+  transition: color 0.2s ease;
+}
+.ui.checkbox label:hover {
+  color: rgba(0, 0, 0, 0.8);
+}
+.ui.checkbox input:focus + label {
+  color: rgba(0, 0, 0, 0.8);
+}
+/*--- Outside Label  ---*/
 .ui.checkbox + label {
   cursor: pointer;
   opacity: 0.85;
@@ -9456,17 +9537,23 @@ a.ui.teal.label:hover:before {
            States
 *******************************/
 /*--- Hover ---*/
-.ui.checkbox .box:hover,
-.ui.checkbox label:hover {
-  background-color: #FAFAFA;
+.ui.checkbox .box:hover::before,
+.ui.checkbox label:hover::before {
   -webkit-box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.3);
   box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.3);
 }
 /*--- Down ---*/
-.ui.checkbox .box:active,
-.ui.checkbox label:active {
+.ui.checkbox .box:active::before,
+.ui.checkbox label:active::before {
   background-color: #F5F5F5;
+}
+/*--- Focus ---*/
+.ui.checkbox input:focus + .box:before,
+.ui.checkbox input:focus + label:before {
+  -webkit-box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0em 0em 0em 1px rgba(0, 0, 0, 0.3);
 }
 /*--- Active ---*/
 .ui.checkbox input:checked + .box:after,
@@ -9481,6 +9568,7 @@ a.ui.teal.label:hover:before {
 .ui.disabled.checkbox label,
 .ui.checkbox input[disabled] + label {
   opacity: 0.4;
+  color: rgba(0, 0, 0, 0.3);
 }
 /*******************************
           Variations
@@ -9488,25 +9576,21 @@ a.ui.teal.label:hover:before {
 /*--------------
      Radio
 ---------------*/
-.ui.radio.checkbox {
-  width: 14px;
-  height: 16px;
-}
-.ui.radio.checkbox .box,
-.ui.radio.checkbox label {
-  width: 14px;
-  height: 14px;
+.ui.radio.checkbox .box:before,
+.ui.radio.checkbox label:before {
+  width: 1em;
+  height: 1em;
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
   border-radius: 500px;
 }
 .ui.radio.checkbox .box:after,
 .ui.radio.checkbox label:after {
-  top: 3px;
-  left: 3px;
   border: none;
-  width: 8px;
-  height: 8px;
+  top: 0.45em;
+  left: 0.2em;
+  width: 0.6em;
+  height: 0.6em;
   background-color: #555555;
   -webkit-border-radius: 500px;
   -moz-border-radius: 500px;
@@ -9517,26 +9601,30 @@ a.ui.teal.label:hover:before {
 ---------------*/
 .ui.slider.checkbox {
   cursor: pointer;
-  width: 3em;
+  min-width: 3em;
   height: 2em;
 }
 /* Line */
 .ui.slider.checkbox:after {
   position: absolute;
-  top: 1em;
+  top: 0.8em;
   left: 0em;
   content: '';
-  width: 100%;
+  width: 3em;
   height: 2px;
   background-color: rgba(0, 0, 0, 0.1);
 }
 /* Button */
 .ui.slider.checkbox .box,
 .ui.slider.checkbox label {
+  padding-left: 4em;
+}
+.ui.slider.checkbox .box:before,
+.ui.slider.checkbox label:before {
   cursor: pointer;
   display: block;
   position: absolute;
-  top: 0.25em;
+  top: 0em;
   left: 0;
   z-index: 1;
   width: 1.5em;
@@ -9558,23 +9646,42 @@ a.ui.teal.label:hover:before {
   position: absolute;
   content: '';
   top: 0.375em;
-  left: 0.375em;
+  left: 0em;
+  z-index: 2;
+  margin-left: 0.375em;
   border: none;
   width: 0.75em;
   height: 0.75em;
-  background-color: #D95C5C;
   border-radius: 50rem;
-  -webkit-transition: background 0.3s ease 0s;
-  -moz-transition: background 0.3s ease 0s;
-  -o-transition: background 0.3s ease 0s;
-  -ms-transition: background 0.3s ease 0s;
-  transition: background 0.3s ease 0s;
+  -webkit-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  -moz-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  -o-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  -ms-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
 }
-/* Active Slider Toggle */
-.ui.slider.checkbox input:checked + .box,
-.ui.slider.checkbox input:checked + label {
+/* Selected Slider Toggle */
+.ui.slider.checkbox input:checked + .box:before,
+.ui.slider.checkbox input:checked + label:before,
+.ui.slider.checkbox input:checked + .box:after,
+.ui.slider.checkbox input:checked + label:after {
   left: 1.75em;
 }
+/* Off Color */
+.ui.slider.checkbox .box:after,
+.ui.slider.checkbox label:after {
+  background-color: #D95C5C;
+}
+/* On Color */
 .ui.slider.checkbox input:checked + .box:after,
 .ui.slider.checkbox input:checked + label:after {
   background-color: #89B84C;
@@ -9584,68 +9691,73 @@ a.ui.teal.label:hover:before {
 ---------------*/
 .ui.toggle.checkbox {
   cursor: pointer;
-  width: 3em;
   height: 2em;
 }
-/* Line */
-.ui.toggle.checkbox:after {
+.ui.toggle.checkbox .box,
+.ui.toggle.checkbox label {
+  padding-left: 4em;
+}
+/* Switch */
+.ui.toggle.checkbox .box:before,
+.ui.toggle.checkbox label:before {
   cursor: pointer;
   display: block;
   position: absolute;
   content: '';
-  top: 0.25em;
+  top: 0em;
   left: 0em;
   z-index: 1;
   background-color: #FFFFFF;
-  width: 100%;
+  width: 3em;
   height: 1.5em;
   -webkit-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset;
   -moz-box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1) inset;
   border-radius: 50rem;
 }
-.ui.toggle.checkbox .box,
-.ui.toggle.checkbox label {
-  position: absolute;
-  top: 0.65em;
-  left: 0.5em;
-  -webkit-transition: left 0.3s ease 0s;
-  -moz-transition: left 0.3s ease 0s;
-  -o-transition: left 0.3s ease 0s;
-  -ms-transition: left 0.3s ease 0s;
-  transition: left 0.3s ease 0s;
+/* Activation Light */
+.ui.toggle.checkbox .box:after,
+.ui.toggle.checkbox label:after {
+  opacity: 1;
   background-color: transparent;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-}
-/* Button Activation Light */
-.ui.toggle.checkbox .box:after,
-.ui.toggle.checkbox label:after {
-  opacity: 1;
   content: '';
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: 0.35em;
+  left: 0.5em;
   z-index: 2;
   border: none;
   width: 0.75em;
   height: 0.75em;
   background-color: #D95C5C;
   border-radius: 50rem;
-  -webkit-transition: background 0.3s ease 0s;
-  -moz-transition: background 0.3s ease 0s;
-  -o-transition: background 0.3s ease 0s;
-  -ms-transition: background 0.3s ease 0s;
-  transition: background 0.3s ease 0s;
+  -webkit-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  -moz-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  -o-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  -ms-transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
+  transition: background 0.3s ease 0s,
+    left 0.3s ease 0s
+  ;
 }
-/* Active toggle Toggle */
-.ui.toggle.checkbox input:checked + .box,
-.ui.toggle.checkbox input:checked + label {
-  left: 1.75em;
+/* Active */
+.ui.toggle.checkbox:active .box:before,
+.ui.toggle.checkbox:active label:before {
+  background-color: #F5F5F5;
 }
+/* Active */
 .ui.toggle.checkbox input:checked + .box:after,
 .ui.toggle.checkbox input:checked + label:after {
+  left: 1.75em;
   background-color: #89B84C;
 }
 /*--------------
@@ -9998,7 +10110,7 @@ body.ui.dimmed.dimmable > :not(.dimmer){
 *******************************/
 /* Opposite on last menu on right */
 .ui.menu .right.menu .dropdown:last-child .menu,
-.ui.button > .ui.dropdown:last-child .menu {
+.ui.buttons > .ui.dropdown:last-child .menu {
   left: auto;
   right: 0px;
 }
@@ -10731,21 +10843,27 @@ a.ui.nag {
   -moz-box-shadow: -1px -1px 1px #dcddde;
   box-shadow: -1px -1px 1px #dcddde;
 }
+.ui.bottom.left.popup {
+  margin-right: -0.8em;
+}
 .ui.bottom.left.popup:before {
   top: -0.4em;
-  left: 1em;
-  right: auto;
+  right: 1em;
   bottom: auto;
+  left: auto;
   margin-left: 0em;
   -webkit-box-shadow: -1px -1px 1px #dcddde;
   -moz-box-shadow: -1px -1px 1px #dcddde;
   box-shadow: -1px -1px 1px #dcddde;
 }
+.ui.bottom.right.popup {
+  margin-left: -0.8em;
+}
 .ui.bottom.right.popup:before {
   top: -0.4em;
-  right: 1em;
+  left: 1em;
+  right: auto;
   bottom: auto;
-  left: auto;
   margin-left: 0em;
   -webkit-box-shadow: -1px -1px 1px #dcddde;
   -moz-box-shadow: -1px -1px 1px #dcddde;
@@ -10759,21 +10877,27 @@ a.ui.nag {
   left: 50%;
   margin-left: -0.4em;
 }
-.ui.top.left.popup:before {
-  bottom: -0.4em;
-  left: 1em;
-  top: auto;
-  right: auto;
-  margin-left: 0em;
+.ui.top.left.popup {
+  margin-right: -0.8em;
 }
-.ui.top.right.popup:before {
+.ui.top.left.popup:before {
   bottom: -0.4em;
   right: 1em;
   top: auto;
   left: auto;
   margin-left: 0em;
 }
-/*--- Left ---*/
+.ui.top.right.popup {
+  margin-left: -0.8em;
+}
+.ui.top.right.popup:before {
+  bottom: -0.4em;
+  left: 1em;
+  top: auto;
+  right: auto;
+  margin-left: 0em;
+}
+/*--- Left Center ---*/
 .ui.left.center.popup:before {
   top: 50%;
   right: -0.35em;
@@ -10784,7 +10908,7 @@ a.ui.nag {
   -webkit-box-shadow: 1px -1px 1px #dcddde;
   box-shadow: 1px -1px 1px #dcddde;
 }
-/*--- Right ---*/
+/*--- Right Center  ---*/
 .ui.right.center.popup:before {
   top: 50%;
   left: -0.35em;
@@ -10933,12 +11057,12 @@ a.ui.nag {
   font-family: 'Icons';
 }
 .ui.heart.rating .active.icon {
-  color: !important;
+  color: #EF404A !important;
 }
 /* Hovered */
 .ui.heart.rating .hover.icon,
 .ui.heart.rating .active.hover.icon {
-  color: !important;
+  color: #FF2733 !important;
 }
 /*******************************
              States
