@@ -1162,6 +1162,7 @@ body.progress .ui.progress .bar {
 /** Download Page */
 
 #build-page .choice {
+    overflow: hidden;
     border-radius: .4rem;
     border: 1px solid #aaa;
     height: 5rem;
@@ -1182,7 +1183,6 @@ body.progress .ui.progress .bar {
 }
 
 
-
 #build-page .plain.choice {
     font-size: 2rem;
     padding-top: 1rem;
@@ -1190,18 +1190,23 @@ body.progress .ui.progress .bar {
 
 
 #build-page .choice:hover {
-    box-shadow: inset 0 0 5em rgba(0, 187, 255, .2);
-    background: rgba(0, 187, 255, 0);
+    box-shadow: inset 0 0 5em rgba(0, 255, 0, .2);
+    background: rgba(0, 255, 0, 0);
 }
 
 
-#build-page .choice.active, #build-page .choice.active:hover {
+#build-page .choice.active {
+    box-shadow: none;
+    background: rgba(0, 255, 0, 0.3);
+}
+
+#build-page .choice.active:hover {
     box-shadow: inset 0 0 3em #fff;
-    background: rgba(0, 187, 255, 0.20);
 }
 
 #build-page .logo {
     height: 100%;
+    max-width: 100%;
 }
 
 /** Media Queries */
