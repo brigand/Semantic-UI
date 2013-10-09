@@ -1214,6 +1214,16 @@ body.progress .ui.progress .bar {
     max-width: 100%;
 }
 
+#build-page  [id].grid > .column {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#build-page #build-framework > .column {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 /** Media Queries */
 
 @media only screen and (max-width : 1725px) {
