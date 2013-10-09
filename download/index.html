@@ -442,6 +442,17 @@
 
 <h2 class="ui dividing header">Modules</h2>
 
+
+<p>Click to toggle modules on and off.</p>
+
+<div class="ui two column center aligned fluid grid basic segment">
+    <div class="column">
+        <strong>Modules:</strong>
+        <button class="ui button" data-bind="click: modules.all">All</button>
+        <button class="ui button" data-bind="click: modules.none">None</button>
+    </div>
+</div>
+
 <div class="ui four column middle center aligned fluid grid" id="build-modules">
     <div class="column">
         <div class="choice" data-bind="toggle: modules.modal">
@@ -495,8 +506,7 @@
 </div>
 <script type="text/javascript" src="lib/knockout-min.js"></script>
 <script type="text/javascript" src="lib/knockout-semantic.js"></script>
-<script type="text/javascript" src="lib/binaryStrings.js"></script>
-<script type="text/javascript" src="js/binaryData.js"></script>
+<script type="text/javascript" src="lib/jszip.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
 <script type="text/javascript" src="js/downloaderViewModel.js"></script>
