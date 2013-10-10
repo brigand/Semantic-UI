@@ -1185,6 +1185,11 @@ body.progress .ui.progress .bar {
     height: 10rem;
 }
 
+
+#build-page .wide.column {
+    width: 50%;
+}
+
 #build-page .very.tall.choice {
     height: 15rem;
 }

@@ -333,6 +333,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 <h2 class="ui dividing header">Elements</h2>
 
 <p>Click to toggle elements on and off.</p>
+
 <p>Right click for per element options.</p>
 
 <div class="ui two column center aligned grid basic segment">
@@ -345,16 +346,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 <p></p>
 
-<div class="ui five fluid column center aligned grid" id="build-element" data-bind="menuScope: 'componentSettings'">
-    <div class="column">
-        <div class="choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
-
-            <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']"><i class="icon"
-                                                                                    data-bind="attr: {class: 'icon ' + $data}"></i>
-
-            </div>
-        </div>
-    </div>
+<div class="ui four fluid column center aligned grid" id="build-element" data-bind="menuScope: 'componentSettings'">
     <div class="column">
         <div class="choice" data-bind="toggle: elements.button"><strong>Button</strong>
 
@@ -369,19 +361,6 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
             <div class="ui header"><i class="settings icon"></i>
 
                 <div class="content">Settings</div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="choice" data-bind="toggle: elements.image"><strong>Image</strong>
-
-            <div style="text-align: center">
-                <img class="ui image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                     style="height: 3rem; display: inline">
-                <img class="ui rounded image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                     style="height: 3rem; display: inline">
-                <img class="ui circular image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                     style="height: 3rem; display: inline">
             </div>
         </div>
     </div>
@@ -406,6 +385,29 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
             <div></div>
         </div>
     </div>
+
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: elements.image"><strong>Image</strong>
+
+            <div style="text-align: center">
+                <img class="ui image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                     style="height: 4rem; display: inline">
+                <img class="ui rounded image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                     style="height: 4rem; display: inline">
+                <img class="ui circular image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
+                     style="height: 4rem; display: inline">
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
+
+            <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']">
+                <i class="icon"
+                   data-bind="attr: {class: 'icon ' + $data}"></i>
+            </div>
+        </div>
+    </div>
     <div class="column">
         <div class="tall choice" data-bind="toggle: elements.divider"><strong>Divider</strong>
 
@@ -420,6 +422,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
     </div>
     <div class="column">
         <div class="tall choice" data-bind="toggle: elements.progress"><strong>Progress</strong>
+
             <div style="text-align: left">
                 <div class="ui purple progress left aligned">
                     <div class="bar" style="width:33%"></div>
@@ -433,10 +436,50 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
             </div>
         </div>
     </div>
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: elements.segment">
+            <strong>Segment</strong>
+
+            <div class="primary ui blue segment">
+                <div></div>
+                I stand out
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: elements.loader">
+            <strong>Loader</strong>
+
+            <div class="ui segment">
+                <div class="ui active dimmer">
+                    <div class="ui text loader">Loading</div>
+                </div>
+                <p>Lorem ipsum dolor sit amet</p>
+            </div>
+        </div>
+    </div>
+    <div class="wide column">
+        <div class="tall choice" data-bind="toggle: elements.step">
+            <div><strong>Step</strong></div>
+
+            <div class="ui small steps">
+                <div class="ui active step">
+                    Shipping
+                </div>
+                <div class="ui step">
+                    Billing
+                </div>
+                <div class="ui step">
+                    Complete
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <h2 class="ui dividing header">Collections</h2>
 
 <p>Click to toggle collections on and off.</p>
+
 <p>Right click for per collection options.</p>
 
 <div class="ui two column center aligned fluid grid basic segment">
@@ -482,6 +525,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 
 <p>Click to toggle modules on and off.</p>
+
 <p>Right click for per module options.</p>
 
 <div class="ui two column center aligned fluid grid basic segment" data-bind="menuScope: 'componentSettings'">
