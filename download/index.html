@@ -333,6 +333,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 <h2 class="ui dividing header">Elements</h2>
 
 <p>Click to toggle elements on and off.</p>
+<p>Right click for per element options.</p>
 
 <div class="ui two column center aligned grid basic segment">
     <div class="column">
@@ -417,10 +418,26 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
             </div>
         </div>
     </div>
+    <div class="column">
+        <div class="tall choice" data-bind="toggle: elements.progress"><strong>Progress</strong>
+            <div style="text-align: left">
+                <div class="ui purple progress left aligned">
+                    <div class="bar" style="width:33%"></div>
+                </div>
+                <div class="ui blue striped progress">
+                    <div class="bar" style="width:66%"></div>
+                </div>
+                <div class="ui red striped active progress">
+                    <div class="bar" style="width:100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <h2 class="ui dividing header">Collections</h2>
 
 <p>Click to toggle collections on and off.</p>
+<p>Right click for per collection options.</p>
 
 <div class="ui two column center aligned fluid grid basic segment">
     <div class="column">
@@ -465,6 +482,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 
 <p>Click to toggle modules on and off.</p>
+<p>Right click for per module options.</p>
 
 <div class="ui two column center aligned fluid grid basic segment" data-bind="menuScope: 'componentSettings'">
     <div class="column">
