@@ -245,6 +245,29 @@
         </div> &ndash;&gt;
 </div>-->
 
+
+<div class="ui vertical menu" data-bind="menuName: 'componentSettings',
+menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000">
+    <a class="active item">
+        <div class="ui teal label">1</div>
+        Inbox
+    </a>
+    <a class="item">
+        <div class="ui label">51</div>
+        Spam
+    </a>
+    <a class="item">
+        <div class="ui label">1</div>
+        Updates
+    </a>
+    <div class="item">
+        <div class="ui icon input">
+            <input type="text" placeholder="Search mail...">
+            <i class="search icon"></i>
+        </div>
+    </div>
+</div>
+
 <div class="main container" id="build-page">
 
 <div class="peek">
@@ -302,9 +325,6 @@
             }"></div>
 </div>
 
-<div>
-
-</div>
 
 <!-- ELEMENTS and COLLECTIONS -->
 
@@ -322,7 +342,7 @@
 
 <p></p>
 
-<div class="ui five fluid column center aligned grid" id="build-element">
+<div class="ui five fluid column center aligned grid" id="build-element" data-bind="menuScope: 'componentSettings'">
     <div class="column">
         <div class="choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
 
@@ -408,10 +428,7 @@
     </div>
 </div>
 
-<!-- TODO: make this propperly spaced using CSS -->
-<p></p>
-
-<div class="ui five column center aligned fluid grid" id="build-element">
+<div class="ui five column center aligned fluid grid" id="build-element" data-bind="menuScope: 'componentSettings'">
 
     <div class="column">
         <div class="tall choice" data-bind="toggle: collections.grid">
@@ -447,7 +464,7 @@
 
 <p>Click to toggle modules on and off.</p>
 
-<div class="ui two column center aligned fluid grid basic segment">
+<div class="ui two column center aligned fluid grid basic segment" data-bind="menuScope: 'componentSettings'">
     <div class="column">
         <strong>Modules:</strong>
         <button class="ui button" data-bind="click: modules.all">All</button>
@@ -514,6 +531,7 @@
 </div>
 <script type="text/javascript" src="lib/knockout-min.js"></script>
 <script type="text/javascript" src="lib/knockout-semantic.js"></script>
+<script type="text/javascript" src="lib/knockout-righty.js"></script>
 <script type="text/javascript" src="lib/jszip.js"></script>
 <script type="text/javascript" src="lib/less.min.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>

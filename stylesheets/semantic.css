@@ -1168,6 +1168,8 @@ body.progress .ui.progress .bar {
     height: 5rem;
     cursor: pointer;
     text-align: center;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
     -webkit-transition: box-shadow .4s, background .4s;
        -moz-transition: box-shadow .4s, background .4s;
           -o-transition: box-shadow .4s, background .4s;

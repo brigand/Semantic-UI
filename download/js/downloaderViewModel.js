@@ -26,6 +26,8 @@ ToggleSet.prototype.none = function () {
     }
 }
 
+var wrapper = "/* Semantic-UI |  */";
+
 function DownloaderViewModel() {
     var _this = this;
 
@@ -34,7 +36,9 @@ function DownloaderViewModel() {
 
     // Stuff that shouldn't be saved
     this._temp = {
-        shouldTheModalBeVisible: ko.observable(false)
+        shouldTheModalBeVisible: ko.observable(false),
+
+        activeItem: ko.observable()
     };
 
     var elements = [
@@ -86,6 +90,19 @@ function DownloaderViewModel() {
         }
         console.log(gel());
     });
+
+
+    // menu stuff
+    this.showMenu = function (element) {
+        var $choice = $(element).closest(".choice");
+
+        if ($choice.length === 0) {
+            return false;
+        }
+
+        _this._temp.activeItem({});
+
+    }
 }
 
 /**
@@ -108,6 +125,8 @@ var viewModel = new DownloaderViewModel();
 ko.applyBindings(viewModel);
 
 function compileLess(files, allowed) {
+    console.time("less compile");
+
     function stringifyPart(which) {
         var parts = [];
 
@@ -136,7 +155,7 @@ function compileLess(files, allowed) {
         // regex borrowed from http://getbootstrap.com/assets/js/customizer.js
         .replace(/@import[^\n]*/gi, '');
 
-    var result, wrapper, parser = new less.Parser({
+    var result, parser = new less.Parser({
         paths: [],
         optimization: 0,
         filename: 'semantic.css'
@@ -151,6 +170,8 @@ function compileLess(files, allowed) {
             })
         }
     });
+
+    console.timeEnd("less compile");
 
     return result;
 }
