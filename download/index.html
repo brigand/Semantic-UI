@@ -248,24 +248,26 @@
 
 <div class="ui vertical menu" data-bind="menuName: 'componentSettings',
 menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000">
-    <a class="active item">
-        <div class="ui teal label">1</div>
-        Inbox
+    <a class="item">
+        <span class="small ui header">Colors</span>
+        This is todo
     </a>
     <a class="item">
-        <div class="ui label">51</div>
-        Spam
+        <span class="small ui header">Size</span>
+        This is todo
     </a>
     <a class="item">
-        <div class="ui label">1</div>
-        Updates
-    </a>
-    <div class="item">
-        <div class="ui icon input">
-            <input type="text" placeholder="Search mail...">
-            <i class="search icon"></i>
+        <div class="ui simple dropdown item">
+            <span data-bind="text: font" class="ui blue">Font</span>
+            <i class="dropdown icon"></i>
+
+            <div class="menu" data-bind="foreach: Object.keys(FONTS)">
+                <div class="item" data-bind="click: $parent.font.set($data),
+                text: $data">Font Option
+                </div>
+            </div>
         </div>
-    </div>
+    </a>
 </div>
 
 <div class="main container" id="build-page">

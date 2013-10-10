@@ -28,6 +28,13 @@ ToggleSet.prototype.none = function () {
 
 var wrapper = "/* Semantic-UI |  */";
 
+// fonts from cssfontstack
+FONTS = {
+    "Helvetica (sans)": 'Helvetica Neue", Helvetica, Arial, sans-serif;',
+    "Bodoni MT (serif)": '"Bodoni MT", Didot, "Didot LT STD", "Hoefler Text", Garamond, "Times New Roman", serif;',
+    "Consolas (mono)": "Consolas, monaco, monospace"
+}
+
 function DownloaderViewModel() {
     var _this = this;
 
@@ -100,7 +107,9 @@ function DownloaderViewModel() {
             return false;
         }
 
-        _this._temp.activeItem({});
+        _this._temp.activeItem({
+            font: ko.observable(Object.keys(FONTS)[0])
+        });
 
     }
 }
