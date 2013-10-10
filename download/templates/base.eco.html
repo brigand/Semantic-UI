@@ -1,0 +1,36 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title><%= @meta.title or 'My Page Title' %></title>
+    <meta name="description" content="<%= @meta.description or 'My Page Description' %>">
+
+    <link rel="stylesheet" href="packaged/css/semantic.min.css">
+</head>
+<body>
+
+    <div class="ui container">
+        <header>
+            <div class="large center aligned ui header"><%= @meta.title or 'My Page Title' %></div>
+            <div class="ui header"><%= @meta.description or 'My Page Description' %></div>
+        </header>
+
+        <p>Here are examples of the elements you chose. <a class="large inverted ui button" id="viewSourceButton">View the Source!</a></p>
+        <script>
+            // terrible hack, but you'll be removing it anyway
+            viewSourceButton.href = "view-source:" + location.href;
+        </script>
+
+        <div role="main">
+            <%- @childHTML %>
+        </div>
+    </div>
+
+<script src="packaged/javascript/jquery.min.js"></script>
+<script src="packaged/javascript/semantic.min.js"></script>
+<% if @framework is 'knockout': %><script src="packaged/javascript/knockout-semantic.min.js"></script><% end %>
+<% if @framework is 'angular': %><script src="packaged/javascript/angular-semantic.min.js"></script><% end %>
+</body>
+</html>
