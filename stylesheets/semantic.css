@@ -1161,6 +1161,57 @@ body.progress .ui.progress .bar {
 
 /** Download Page */
 
+#build-page .plain.choice {
+    font-size: 2rem;
+    padding-top: 1rem;
+}
+
+#build-page .choice {
+    position: relative;
+}
+
+#build-page .choice:after {
+    z-index: 100;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    -webkit-transition: box-shadow .4s, background .4s;
+    -moz-transition: box-shadow .4s, background .4s;
+    -o-transition: box-shadow .4s, background .4s;
+    transition: box-shadow .4s, background .4s;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#build-page .choice:after {
+    box-shadow: inset 0 0 1em red;
+    background: rgba(0, 0, 0, .5);
+}
+
+
+#build-page .choice.active:after {
+    box-shadow: inset 0 0 1em green;
+    background: transparent;
+}
+
+/* Framework section */
+
+#build-framework .choice:after {
+    display: none;
+}
+
+#build-framework .choice {
+    background: white;
+}
+
 #build-page .choice {
     overflow: hidden;
     border-radius: .4rem;
@@ -1170,65 +1221,20 @@ body.progress .ui.progress .bar {
     text-align: center;
     padding-left: 0.5em;
     padding-right: 0.5em;
-    -webkit-transition: box-shadow .4s, background .4s;
-       -moz-transition: box-shadow .4s, background .4s;
-          -o-transition: box-shadow .4s, background .4s;
-             transition: box-shadow .4s, background .4s;
-
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    position: relative;
 }
 
-#build-page .tall.choice {
-    height: 10rem;
-}
-
-
-#build-page .wide.column {
-    width: 50%;
-}
-
-#build-page .very.tall.choice {
-    height: 15rem;
-}
-
-
-#build-page .plain.choice {
-    font-size: 2rem;
-    padding-top: 1rem;
-}
-
-
-#build-page .choice:hover {
-    box-shadow: inset 0 0 5em rgba(0, 255, 0, .2);
-    background: rgba(0, 255, 0, 0);
-}
-
-
-#build-page .choice.active {
-    box-shadow: none;
+#build-framework .choice.active {
     background: rgba(0, 255, 0, 0.3);
 }
 
-#build-page .choice.active:hover {
-    box-shadow: inset 0 0 3em #fff;
+#build-framework .choice, #build-framework .choice:after {
+    box-shadow: none;
 }
 
 #build-page .logo {
     height: 100%;
     max-width: 100%;
-}
-
-#build-page  [id].grid > .column {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-#build-page #build-framework > .column {
-    margin-top: 0;
-    margin-bottom: 0;
 }
 
 /** Media Queries */

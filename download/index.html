@@ -328,7 +328,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 </div>
 
 
-<!-- ELEMENTS and COLLECTIONS -->
+<!-- ELEMENTS -->
 
 <h2 class="ui dividing header">Elements</h2>
 
@@ -346,136 +346,247 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 <p></p>
 
-<div class="ui four fluid column center aligned grid" id="build-element" data-bind="menuScope: 'componentSettings'">
-    <div class="column">
-        <div class="choice" data-bind="toggle: elements.button"><strong>Button</strong>
+<div class="ui two type stackable items">
 
-            <div>
-                <div class="ui button">I'm a button!</div>
-            </div>
+<div class="item choice" data-bind="toggle: elements.button">
+    <div class="image">
+        <div class="ui teal labeled icon button">
+            <i class="icon user add"></i>Follow
+        </div>
+        <br><br>
+        <div class="ui black icon buttons">
+            <div class="ui button"><i class="icon user"></i></div>
+            <div class="ui button"><i class="icon settings"></i></div>
+            <div class="ui button"><i class="icon trash"></i></div>
         </div>
     </div>
-    <div class="column">
-        <div class="choice" data-bind="toggle: elements.header"><strong>Header</strong>
-
-            <div class="ui header"><i class="settings icon"></i>
-
-                <div class="content">Settings</div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="choice" data-bind="toggle: elements.input"><strong>Input</strong>
-
-            <div class="ui fluid icon input">
-                <input type="text" placeholder="Search for something"> <i class="search icon"></i>
-
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="choice" data-bind="toggle: elements.label"><strong>Label</strong>
-
-            <div><a class="ui blue circular label">
-                62
-            </a>
-                <span class="purple ui pointing left label">number</span>
-
-            </div>
-            <div></div>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: elements.image"><strong>Image</strong>
-
-            <div style="text-align: center">
-                <img class="ui image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                     style="height: 4rem; display: inline">
-                <img class="ui rounded image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                     style="height: 4rem; display: inline">
-                <img class="ui circular image" src="//placehold.it/100x100/000/fff/" alt="placeholder"
-                     style="height: 4rem; display: inline">
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: elements.icon"><strong>Icons</strong>
-
-            <div data-bind="foreach: ['tag', 'mail', 'photo', 'cloud', 'trash']">
-                <i class="icon"
-                   data-bind="attr: {class: 'icon ' + $data}"></i>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: elements.divider"><strong>Divider</strong>
-
-            <div>
-                <div>One</div>
-                <div class="ui horizontal icon divider"><i class="circular heart icon"></i>
-
-                </div>
-                <div>Two</div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: elements.progress"><strong>Progress</strong>
-
-            <div style="text-align: left">
-                <div class="ui purple progress left aligned">
-                    <div class="bar" style="width:33%"></div>
-                </div>
-                <div class="ui blue striped progress">
-                    <div class="bar" style="width:66%"></div>
-                </div>
-                <div class="ui red striped active progress">
-                    <div class="bar" style="width:100%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: elements.segment">
-            <strong>Segment</strong>
-
-            <div class="primary ui blue segment">
-                <div></div>
-                I stand out
-            </div>
-        </div>
-    </div>
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: elements.loader">
-            <strong>Loader</strong>
-
-            <div class="ui segment">
-                <div class="ui active dimmer">
-                    <div class="ui text loader">Loading</div>
-                </div>
-                <p>Lorem ipsum dolor sit amet</p>
-            </div>
-        </div>
-    </div>
-    <div class="wide column">
-        <div class="tall choice" data-bind="toggle: elements.step">
-            <div><strong>Step</strong></div>
-
-            <div class="ui small steps">
-                <div class="ui active step">
-                    Shipping
-                </div>
-                <div class="ui step">
-                    Billing
-                </div>
-                <div class="ui step">
-                    Complete
-                </div>
-            </div>
-        </div>
+    <div class="content">
+        <a href="elements/button.html" class="name">Button</a>
+        <p>A button indicates a possible user action.</p>
     </div>
 </div>
+<div class="item choice" data-bind="toggle: elements.divider">
+    <div class="image">
+        <div class="ui horizontal divider"><i class="github icon"></i></div>
+    </div>
+    <div class="content">
+        <a href="elements/divider.html" class="name">Divider</a>
+        <p>A divider visually segments content into separate groups</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.header">
+    <div class="image">
+        <h2 class="ui blue block header">
+            Section 2
+            <div class="sub header">The second section of the website</div>
+        </h2>
+    </div>
+    <div class="content">
+        <a href="elements/header.html" class="name">Header</a>
+        <p>Headers provide a short summary of content</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.progress">
+    <div class="image">
+        <div class="red striped active ui progress">
+            <div class="bar" style="width: 66%"></div>
+        </div>
+    </div>
+    <div class="content">
+        <a href="elements/progress.html" class="name">Progress Bar</a>
+        <p>A progress bar displays progress on a task</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.segment">
+    <div class="image">
+        <div class="ui inverted stacked segment">
+            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
+        </div>
+    </div>
+    <div class="content">
+        <a href="elements/segment.html" class="name">Segment</a>
+        <p>A segment is used to create a grouping of related content.</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.image">
+    <div class="image">
+        <div class="ui left floated circular image">
+            <img src="/images/demo/avatar.jpg">
+        </div>
+        <div class="ui right floated circular image">
+            <img src="/images/demo/avatar2.jpg">
+        </div>
+    </div>
+    <div class="content">
+        <a href="elements/image.html" class="name">Image</a>
+        <p>An image is a graphic representation of something</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.step">
+    <div class="image">
+        <div class="ui four fluid steps">
+            <div class="ui step">
+                First
+            </div>
+            <div class="ui active step">
+                Second
+            </div>
+            <div class="ui disabled step">
+                Third
+            </div>
+            <div class="ui disabled step">
+                Last
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <a href="elements/step.html" class="name">Step</a>
+        <p>Steps show the current activity in a series of steps.</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.icon">
+    <div class="image">
+        <i class="archive icon"></i>
+        <i class="attachment icon"></i>
+        <i class="browser icon"></i>
+        <i class="bug icon"></i>
+        <i class="calendar icon"></i>
+        <i class="cart icon"></i>
+        <i class="certificate icon"></i>
+        <i class="chat icon"></i>
+        <i class="cloud icon"></i>
+        <i class="code icon"></i>
+        <i class="comment icon"></i>
+        <i class="dashboard icon"></i>
+        <i class="desktop icon"></i>
+        <i class="empty calendar icon"></i>
+        <i class="external url icon"></i>
+        <i class="external url sign icon"></i>
+        <i class="file icon"></i>
+        <i class="file outline icon"></i>
+        <i class="folder icon"></i>
+        <i class="folder open icon"></i>
+        <i class="folder open outline icon"></i>
+        <i class="folder outline icon"></i>
+        <i class="help icon"></i>
+        <i class="home icon"></i>
+        <i class="inbox icon"></i>
+        <i class="info icon"></i>
+        <i class="info letter icon"></i>
+        <i class="legal icon"></i>
+        <i class="location arrow icon"></i>
+        <i class="mail icon"></i>
+        <i class="mail outline icon"></i>
+        <i class="map icon"></i>
+        <i class="map marker icon"></i>
+        <i class="mobile icon"></i>
+        <i class="music icon"></i>
+        <i class="outline chat icon"></i>
+        <i class="outline comment icon"></i>
+        <i class="payment icon"></i>
+        <i class="photo icon"></i>
+        <i class="qr code icon"></i>
+        <i class="question icon"></i>
+        <i class="rss icon"></i>
+        <i class="rss sign icon"></i>
+        <i class="setting icon"></i>
+        <i class="settings icon"></i>
+        <i class="signal icon"></i>
+        <i class="sitemap icon"></i>
+        <i class="table icon"></i>
+        <i class="tablet icon"></i>
+        <i class="tag icon"></i>
+        <i class="tags icon"></i>
+        <i class="tasks icon"></i>
+        <i class="terminal icon"></i>
+        <i class="text file icon"></i>
+        <i class="text file outline icon"></i>
+        <i class="time icon"></i>
+        <i class="trash icon"></i>
+        <i class="url icon"></i>
+        <i class="user icon"></i>
+        <i class="users icon"></i>
+        <i class="video icon"></i>
+        <i class="add icon"></i>
+        <i class="add sign box icon"></i>
+        <i class="add sign icon"></i>
+        <i class="adjust icon"></i>
+        <i class="bookmark empty icon"></i>
+        <i class="bookmark icon"></i>
+        <i class="cloud download icon"></i>
+        <i class="cloud upload icon"></i>
+        <i class="collapse icon"></i>
+        <i class="crop icon"></i>
+        <i class="download disk icon"></i>
+        <i class="download icon"></i>
+        <i class="edit icon"></i>
+        <i class="edit sign icon"></i>
+        <i class="empty flag icon"></i>
+        <i class="exchange icon"></i>
+        <i class="expand icon"></i>
+        <i class="filter icon"></i>
+        <i class="flag icon"></i>
+        <i class="fork code icon"></i>
+        <i class="forward mail icon"></i>
+        <i class="fullscreen icon"></i>
+        <i class="hide icon"></i>
+        <i class="level down icon"></i>
+        <i class="level up icon"></i>
+        <i class="off icon"></i>
+    </div>
+    <div class="content">
+        <a href="elements/icon.html" class="name">Icon</a>
+        <p>An icon is a glyph used to represent another concept more simply</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.label">
+    <div class="image">
+        <div class="ui red label">Dog</div>
+        <div class="ui teal corner label">
+            <div class="text">New</div>
+        </div>
+        <br><br>
+        <div class="ui blue ribbon label">HTML</div>
+    </div>
+    <div class="content">
+        <a href="elements/label.html" class="name">Label</a>
+        <p>Labels give descriptions to sections of content.</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.input">
+    <div>
+        <div class="ui action input">
+            <input type="text" placeholder="John Doe">
+            <div class="ui button">Add User</div>
+        </div>
+        <div class="ui action input">
+            <input type="text" placeholder="Search...">
+            <div class="ui icon button"><i class="search icon"></i></div>
+        </div>
+        <div class="ui icon input">
+            <input type="text" placeholder="First Name">
+            <i class="user icon"></i>
+        </div>
+    </div>
+    <div class="content">
+        <a href="elements/label.html" class="name">Input</a>
+        <p>Inputs provide a forum for users to enter information.</p>
+    </div>
+</div>
+<div class="item choice" data-bind="toggle: elements.loader">
+    <div class="ui segment">
+        <div class="ui active dimmer">
+            <div class="ui text loader">Loading</div>
+        </div>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.</p>
+    </div>
+    <div class="content">
+        <a href="elements/label.html" class="name">Loader</a>
+        <p>Loaders inform users that content isn't ready yet.</p>
+    </div>
+</div>
+</div>
+
 <h2 class="ui dividing header">Collections</h2>
 
 <p>Click to toggle collections on and off.</p>
@@ -490,36 +601,127 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
     </div>
 </div>
 
-<div class="ui five column center aligned fluid grid" id="build-element" data-bind="menuScope: 'componentSettings'">
-
-    <div class="column">
-        <div class="tall choice" data-bind="toggle: collections.grid">
-            <strong>Grid</strong>
-
-            <div class="ui two column center aligned grid">
-                <div class="column">
-                    <div class="ui segment">A</div>
-                </div>
-                <div class="column">
-                    <div class="ui segment">B</div>
-                </div>
+<div class="ui type two stackable items">
+    <div class="item choice" data-bind="toggle: collections.breadcrumb">
+        <div class="image">
+            <div class="ui breadcrumb">
+                <a class="section">Food</a>
+                <div class="divider"> / </div>
+                <a class="section">Fruit</a>
+                <div class="divider"> / </div>
+                <div class="active section">Apples</div>
             </div>
-            <div class="ui three column center aligned grid">
-                <div class="column">
-                    <div class="ui segment">C</div>
+            <div class="ui divider"></div>
+            <div class="ui breadcrumb">
+                <a class="section">Food</a>
+                <i class="right arrow icon divider"></i>
+                <a class="section">Fruit</a>
+                <i class="right arrow icon divider"></i>
+                <div class="active section">Apples</div>
+            </div>
+        </div>
+        <div class="content">
+            <a href="/collections/breadcrumb.html" class="name">Breadcrumb</a>
+            <p class="description">A breadcrumb is a menu to show the location of the current section in relation to other sections.</p>
+        </div>
+    </div>
+    <div class="item choice" data-bind="toggle: collections.form">
+        <div class="image">
+            <div class="ui fluid form">
+                <div class="field">
+                    <label>Name</label>
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" placeholder="Name">
+                    </div>
                 </div>
-                <div class="column">
-                    <div class="ui segment">D</div>
-                </div>
-
-                <div class="column">
-                    <div class="ui segment">E</div>
+                <div class="field">
+                    <label>E-mail</label>
+                    <div class="ui left icon input">
+                        <i class="email icon"></i>
+                        <input type="text" placeholder="E-mail">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="content">
+            <a href="/collections/form.html" class="name">Form</a>
+            <p class="description">A form is used to solicit a user response</p>
+        </div>
+    </div>
+    <div class="item choice" data-bind="toggle: collections.grid">
+        <div class="image">
+            <div class="ui three column aligned page grid">
+                <div class="column"><div class="ui segment">1</div></div>
+                <div class="column"><div class="ui segment">2</div></div>
+                <div class="column"><div class="ui segment">3</div></div>
+            </div>
+        </div>
+        <div class="content">
+            <a href="/collections/grid.html" class="name">Grid</a>
+            <p class="description">A grid helps harmonize negative space in a layout</p>
+        </div>
+    </div>
+    <div class="item choice" data-bind="toggle: collections.menu">
+        <div class="image">
+            <div class="ui three inverted red menu">
+                <a class="active item">Friends</a>
+                <a class="item">Messages</a>
+                <a class="item">Profile</a>
+            </div>
+            <div class="ui three inverted blue menu">
+                <a class="active item">Friends</a>
+                <a class="item">Messages</a>
+                <a class="item">Profile</a>
+            </div>
+        </div>
+        <div class="content">
+            <a href="/collections/menu.html" class="name">Menu</a>
+            <p class="description">A menu organizes related links</p>
+        </div>
+    </div>
+
+    <div class="item choice" data-bind="toggle: collections.message">
+        <div class="image">
+            <div class="ui error message">
+                <div class="header">We're sorry we can't process your idea just yet</div>
+                <p>Please enter your name</p>
+            </div>
+        </div>
+        <div class="content">
+            <a href="collections/message.html" class="name">Message</a>
+            <p class="description">Messages alert a user to something important.</p>
+        </div>
+    </div>
+
+    <div class="item choice" data-bind="toggle: collections.table">
+        <div class="image">
+            <table class="ui celled definition table segment">
+                <thead>
+                <tr><th>Name</th>
+                    <th>Status</th>
+                </tr></thead>
+                <tbody>
+                <tr class="positive">
+                    <td>John</td>
+                    <td> Approved</td>
+                </tr><tr>
+                    <td>John</td>
+                    <td> Unconfirmed</td>
+                </tr>
+                <tr class="negative">
+                    <td>Sally</td>
+                    <td> Denied</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="content">
+            <a href="/collections/table.html" class="name">Table</a>
+            <p class="description">A table collects related data into rows of content</p>
+        </div>
     </div>
 </div>
-
 
 <h2 class="ui dividing header">Modules</h2>
 
@@ -592,6 +794,34 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 <h2 class="ui dividing header">Extras</h2>
 
 <h2 class="ui dividing header">Download</h2>
+
+<h4 class="ui dividing header">Credits</h4>
+<div class="ui four column center aligned fluid grid">
+    <div class="column">
+        Font Lists: <a href="http://cssfontstack.com">cssfontstack</a>
+    </div>
+    <div class="column">
+        Zip Files: <a href="http://stuk.github.io/jszip/">jszip</a>
+    </div>
+    <div class="column">
+        MVVM: <a href="http://knockoutjs.com">KnockoutJS</a>
+    </div>
+    <div class="column">
+        Awesomeness: <a href="http://jquery.com">jQuery</a>
+    </div>
+</div>
+
+<div class="ui dividing header"></div>
+
+<div class="center aligned fluid ui grid">
+    <div class="twelve wide column">
+        &nbsp;
+    </div>
+    <div class="four wide column">
+        Created by: <a href="https://github.com/brigand/">brigand</a>
+    </div>
+</div>
+
 </div>
 <script type="text/javascript" src="lib/knockout-min.js"></script>
 <script type="text/javascript" src="lib/knockout-semantic.js"></script>
