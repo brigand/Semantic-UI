@@ -1,32 +1,31 @@
 function ToggleSet(keys) {
     for ( var i = 0; i < keys.length; i++ ) {
-        this[keys[i]] = ko.observable(true);
+        this[keys[i]] = new sui.Toggle({
+            on: true
+        });
     }
 
     this.all = this.all.bind(this);
     this.none = this.none.bind(this);
+
+    ko.track(this);
 }
 
 ToggleSet.prototype.all = function () {
     for ( var prop in this ) {
-        var thing = this[prop];
-        console.log(prop, ko.unwrap(thing));
-        if ( ko.isObservable(thing) ) {
-            thing(true);
+        if ( this.hasOwnProperty(prop) ) {
+            this[prop].on = true;
         }
     }
 }
 
 ToggleSet.prototype.none = function () {
     for ( var prop in this ) {
-        var thing = this[prop];
-        if ( ko.isObservable(thing) ) {
-            thing(false);
+        if ( this.hasOwnProperty(prop) ) {
+            this[prop].on = false;
         }
     }
 }
-
-var wrapper = "/* Semantic-UI |  */";
 
 // fonts from cssfontstack
 FONTS = {
@@ -38,15 +37,30 @@ FONTS = {
 function DownloaderViewModel() {
     var _this = this;
 
-    this.framework = ko.observable("");
-    this.jQueryVersion = ko.observable(0);
+    this.framework = "";
+    this.jQuery = new sui.Dropdown({
+        selected: "",
+        defaultText: "jQuery Version",
+        data: [
+            "2.0.3", "1.9.0", "1.8.3", "1.7.2", "1.6.4", "1.4.4"
+        ]
+    });
 
     // Stuff that shouldn't be saved
     this._temp = {
-        shouldTheModalBeVisible: ko.observable(false),
-
-        activeItem: ko.observable()
+        testModal: {
+            title: 'Demo Modal',
+            content: 'This is just an example',
+            show: false
+        },
+        showModal: function () {
+            _this._temp.testModal.show = true;
+        },
+        activeItem: null
     };
+    ko.track(this._temp, ["activeItem"]);
+    ko.track(this._temp.testModal);
+
 
     var elements = [
         "icon", "button", "divider", "header", "image", "input", "label", "loader", "progress", "segment", "step"
@@ -68,16 +82,16 @@ function DownloaderViewModel() {
     this.views = new ToggleSet(views)
 
     // Make the context menu work
-    this.menuTarget = ko.observable();
+    this.menuTarget = null;
 
     // Meta Info
     this.meta = {
-        title: ko.observable(""),
-        description: ko.observable("")
+        title: "",
+        description: ""
     }
 
     // AJAX stuff
-    this.downloadComplete = ko.observable(false);
+    this.downloadComplete = false;
 
     var zip, files = {
         js: {},
@@ -91,27 +105,75 @@ function DownloaderViewModel() {
 
     downloadZipball(files, function (z) {
         zip = z;
-        _this.downloadComplete(true);
+        _this.downloadComplete = true;
         window.gel = function () {
-            return compileLess(files, _this.toJSON());
         }
-        console.log(gel());
     });
 
+    // build and download
+    this.download = function(){
+        if (!_this.downloadComplete) return;
+
+        // disable the button
+        _this.downloadComplete = true;
+
+        var less = compileLess(files, _this);
+        var js = compileJavaScript(files, _this);
+
+        // todo build example html file
+
+        var zip = new JSZip();
+        var lib = zip.folder("lib");
+        lib.folder("js")
+            .file("semantic.min.js", js['semantic.min.js']);
+
+        lib.folder("css")
+            .file("semantic.min.css", less['semantic.min.css'])
+            .file("semantic.css", less['semantic.css']);
+
+
+        console.log("framework", _this.framework)
+        if (_this.framework === "knockout") {
+            if (AJAX.knockout && AJAX.knockoutsemantic && AJAX.knockoutes5) {
+                lib.file("js/knockout.min.js", AJAX.knockout);
+                lib.file("js/knockout.es5.min.js", AJAX.knockoutes5);
+                lib.file("js/knockout-semantic.min.js", AJAX.knockoutsemantic);
+            }
+            else {
+                throw new Error("some files haven't finished downloading");
+            }
+        }
+
+        // pack and download it
+        var blob = zip.generate({type:"blob"});
+        var createURL = (URL.createObjectURL || URL.webkitCreateObjectURL);
+        var a = document.createElement("a")
+        a.href = createURL(blob);
+        a.download = "semantic.zip";
+        a.click();
+
+        // give the OS some time to show a file save dialog
+        // users are impatient, but browsers get mad when
+        // you try to download multiple files
+        setTimeout(function(){
+            _this.downloadComplete = true;
+        }, 3000);
+    };
 
     // menu stuff
     this.showMenu = function (element) {
         var $choice = $(element).closest(".choice");
 
-        if ($choice.length === 0) {
+        if ( $choice.length === 0 ) {
             return false;
         }
 
         _this._temp.activeItem({
             font: ko.observable(Object.keys(FONTS)[0])
         });
-
     }
+
+    ko.track(this);
 }
 
 /**
@@ -126,120 +188,12 @@ DownloaderViewModel.prototype.toJSON = function () {
     delete obj._temp;
     delete obj.menuTarget;
     delete obj.downloadComplete;
+    delete obj.toJSON;
+    delete obj.jQuery.data;
+    delete obj.jQuery.defaultText;
 
     return obj;
 };
 
 var viewModel = new DownloaderViewModel();
 ko.applyBindings(viewModel);
-
-function compileLess(files, allowed) {
-    console.time("less compile");
-
-    function stringifyPart(which) {
-        var parts = [];
-
-        var len = 0;
-
-        // todo: deal with basic.icon.less and awesome.icon.less
-        $.each(files.less[which], function (name, file) {
-            if ( allowed[which][name] ) {
-                parts.push(file);
-            }
-        });
-
-        return parts.join("\n");
-    }
-
-
-    // merge all selected components into one string
-    css = [
-        stringifyPart("elements"),
-        stringifyPart("collections"),
-        stringifyPart("modules"),
-        stringifyPart("views")
-    ].join("\n")
-
-        // remove any imports
-        // regex borrowed from http://getbootstrap.com/assets/js/customizer.js
-        .replace(/@import[^\n]*/gi, '');
-
-    var result, parser = new less.Parser({
-        paths: [],
-        optimization: 0,
-        filename: 'semantic.css'
-    }).parse(css, function (err, tree) {
-            if ( err ) {
-                return console.error('<strong>Ruh roh!</strong> Could not parse less files.', err);
-            }
-            result = {
-                'semantic.css': wrapper + tree.toCSS(),
-                'semantic.min.css': wrapper + tree.toCSS({
-                    compress: true
-            })
-        }
-    });
-
-    console.timeEnd("less compile");
-
-    return result;
-}
-
-function downloadZipball(files, callback) {
-    var zip, xhr = new XMLHttpRequest();
-
-    // jQuery doesn't support this, but JSZip loves it
-    // http://bugs.jquery.com/ticket/11461
-    xhr.open('GET', '/build/semantic.zip', true);
-    xhr.responseType = 'arraybuffer';
-
-    xhr.onload = function (e) {
-        zip = new JSZip(this.response);
-        $.each(zip.files, function (name, file) {
-            // exclude directory results
-            if ( name.indexOf(".") === -1 ) {
-                return;
-            }
-
-            var parts = name.split("/"), type, dir, fileName, ext;
-
-            // must be something/something/somefile.txt
-            // just a sanity check, this shouldn't ever be true
-            // note that it may be 4, for less/modules/behavior
-            if ( parts.length < 3 ) {
-                return;
-            }
-
-            // e.g. less or minified
-            type = parts[0];
-
-            // e.g. components or elements
-            dir = parts[1];
-
-            // e.g. "modal"
-            fileName = /\w+(?=\.)/g.exec(name)[0];
-
-            // e.g. less or min.js; strange method, so here's a graph from `name` to `ext`
-            // "path/to/file.a" -> ["path/to/file", "a"] -> ["a"] -> "a"
-            // "path/to/file.a.b" -> ["path/to/file", "a", "b"] -> ["a", "b"] -> "a.b"
-            var extensions = name.split(".");
-            extensions.shift();
-            ext = extensions.join(".");
-
-            // store our less files
-            if ( type === "less" && (ext === "less" || ext === "icon.less") ) {
-                files.less[dir][fileName] = file.asText();
-            }
-            // store the minified JavaScript files
-            else if ( type === "minified" && dir === "modules" && ext === "min.js" ) {
-                files.js[fileName] = file.asText();
-            }
-
-            /* TODO: parse variables and stuff like that */
-        });
-
-        callback(zip);
-    };
-
-    xhr.send();
-}

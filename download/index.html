@@ -295,16 +295,16 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 <div class="ui three column fluid grid" id="build-framework">
     <div class="column plain choice"
-         data-bind="click: framework.set(''), css:{ active: framework.is('') }">
+         data-bind="click: function() { $data.framework = '' }, css:{ active: framework === '' }">
         No Framework / Other
     </div>
     <div class="column choice"
-         data-bind="click: framework.set('angular'), css:{ active: framework.is('angular') }">
+         data-bind="click: function() { $data.framework = 'angular' }, css:{ active: framework === 'angular' }">
         <img src="http://angularjs.org/img/AngularJS-large.png" class="logo"
              alt="AngularJS (click to choose)"/>
     </div>
     <div class="column choice"
-         data-bind="click: framework.set('knockout'), css:{ active: framework.is('knockout') }">
+         data-bind="click: function() { $data.framework = 'knockout' }, css:{ active: framework === 'knockout' }">
         <img src="http://knockoutjs.com/img/ko-logo.png" class="logo"
              alt="KnockoutJS (click to choose)"/>
     </div>
@@ -321,10 +321,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
         older browsers. Chrome, Firefox, Opera, and Safari have the
         <a href="http://jquery.com/browser-support/">same support</a> with either.</p>
 
-    <div class="ui selection dropdown" data-bind="dropdown: {
-                options: AJAX.jQueryData().versions,
-                value: jQueryVersion
-            }"></div>
+    <sui-dropdown data="$data.jQuery" class="selection"></sui-dropdown>
 </div>
 
 
@@ -745,13 +742,9 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
         </div>
     </div>
     <div class="column">
-        <div class="ui fluid button" data-bind="toggle: _temp.shouldTheModalBeVisible">Demo</div>
+        <div class="ui fluid button" data-bind="click: _temp.showModal">Demo</div>
         <div class="ui modal"
-             data-bind="modal: {
-                     title: 'Demo Modal',
-                     content: 'This is just an example',
-                     show: _temp.shouldTheModalBeVisible
-                }">
+             data-bind="modal: _temp.testModal">
         </div>
     </div>
 
@@ -795,6 +788,8 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 <h2 class="ui dividing header">Download</h2>
 
+<button class="ui huge blue button" data-bind="click: download, enable: $data.downloadComplete">Download</button>
+
 <h4 class="ui dividing header">Credits</h4>
 <div class="ui four column center aligned fluid grid">
     <div class="column">
@@ -824,12 +819,14 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 </div>
 <script type="text/javascript" src="lib/knockout-min.js"></script>
+<script type="text/javascript" src="lib/knockout-es5.min.js"></script>
 <script type="text/javascript" src="lib/knockout-semantic.js"></script>
 <script type="text/javascript" src="lib/knockout-righty.js"></script>
 <script type="text/javascript" src="lib/jszip.js"></script>
 <script type="text/javascript" src="lib/less.min.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/compile.js"></script>
 <script type="text/javascript" src="js/downloaderViewModel.js"></script>
 </body>
 </html>

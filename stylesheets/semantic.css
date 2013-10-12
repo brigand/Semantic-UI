@@ -1218,7 +1218,6 @@ body.progress .ui.progress .bar {
     border: 1px solid #aaa;
     height: 5rem;
     cursor: pointer;
-    text-align: center;
     padding-left: 0.5em;
     padding-right: 0.5em;
     position: relative;
@@ -1230,6 +1229,7 @@ body.progress .ui.progress .bar {
 
 #build-framework .choice, #build-framework .choice:after {
     box-shadow: none;
+    text-align: center;
 }
 
 #build-page .logo {
