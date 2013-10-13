@@ -160,6 +160,19 @@ function DownloaderViewModel() {
         }, 3000);
     };
 
+    /**
+     * custom variables for LESS
+     * @type {{elements: {}, components: {}, modules: {}, views: {}}}
+     */
+    this.custom = {
+        elements: {},
+        components: {},
+        modules: {},
+        views: {}
+    };
+
+    var track = ko.track;
+
     // menu stuff
     this.showMenu = function (element) {
         var $choice = $(element).closest(".choice");
@@ -168,9 +181,32 @@ function DownloaderViewModel() {
             return false;
         }
 
-        _this._temp.activeItem({
-            font: ko.observable(Object.keys(FONTS)[0])
-        });
+        // find out which item this is
+        // e.g. "component.grid"
+        var str = /\w+\.\w+/g.exec($choice.data('bind'))[0];
+
+        if (!str) {
+            console.error("error in showMenu", $choice.data('bind'));
+        }
+
+        var type = str.split(".")[0], which = str.split(".")[1];
+
+        var customObject;
+
+        if (_this.custom[type][which]) {
+            customObject = _this.custom[type][which];
+        }
+        else {
+            customObject = {
+                font: Object.keys(FONTS)[0]
+            };
+
+            _this.custom[type][which] = customObject;
+
+            track(customObject);
+        }
+
+        _this._temp.activeItem = customObject;
     }
 
     ko.track(this);

@@ -258,12 +258,12 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
     </a>
     <a class="item">
         <div class="ui simple dropdown item">
-            <span data-bind="text: font" class="ui blue">Font</span>
+            <span data-bind="text: $data.font + ''" class="ui blue">Font</span>
             <i class="dropdown icon"></i>
 
             <div class="menu" data-bind="foreach: Object.keys(FONTS)">
-                <div class="item" data-bind="click: $parent.font.set($data),
-                text: $data">Font Option
+                <div class="item" data-bind="text: $data,
+                click: function () { $parent.font = $data }">Font Option
                 </div>
             </div>
         </div>
@@ -343,7 +343,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
 
 <p></p>
 
-<div class="ui two type stackable items">
+<div class="ui two type stackable items" data-bind="menuScope: 'componentSettings'">
 
 <div class="item choice" data-bind="toggle: elements.button">
     <div class="image">
@@ -598,7 +598,7 @@ menuShow: showMenu, with: _temp.activeItem" style="display: none; z-index: 1000"
     </div>
 </div>
 
-<div class="ui type two stackable items">
+<div class="ui type two stackable items" data-bind="menuScope: 'componentSettings'">
     <div class="item choice" data-bind="toggle: collections.breadcrumb">
         <div class="image">
             <div class="ui breadcrumb">
